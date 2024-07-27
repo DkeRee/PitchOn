@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pitchle</title>
+		<meta charset = "UTF-8">
+		<link href = "style.css" rel = "stylesheet" type = "text/css">
+		<script src = "js/math.js"></script>
+		<!--<script src="http://unpkg.com/tone"></script>-->
+		<script>
+			//credit to https://stackoverflow.com/questions/21646738/convert-hex-to-rgba
+			function hexToRgbA(hex, opacity){
+    			var c;
+    			if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+        			c= hex.substring(1).split('');
+        			if(c.length== 3){
+            			c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+        			}
+        			c= '0x'+c.join('');
+        			return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + opacity + ')';
+    			}
+   		 		throw new Error(`Bad Hex: ${hex}`);
+			}
+		</script>
+	</head>
+	<body>
+		<div id = "game-container">
+			<div class = "outer-wrapper">
+				<canvas id = "game"></canvas>
+			</div>
+		</div>
+
+		<!--JS SCRIPTS-->
+		<script src = "js/globals.js"></script>
+		<script src = "js/particle.js"></script>
+		<script src = "js/particles/bubbleParticle.js"></script>
+		<script src = "js/particles/rippleParticle.js"></script>
+		<script src = "js/bubble.js"></script>
+		<script src = "js/sea.js"></script>
+		<script src = "js/bubbleTypes/naturalBubble.js"></script>
+		<script src = "js/runner.js"></script>
+	</body>
+</html>
