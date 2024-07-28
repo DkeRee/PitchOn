@@ -46,6 +46,10 @@
 			const bubble = STAGE_CACHE.bubbles[i];
 
 			if (bubble.delete) {
+				if (bubble.playing) {
+					synth.triggerRelease(Tone.now());
+				}
+
 				STAGE_CACHE.bubbles.splice(i, 1);
 				continue;
 			}

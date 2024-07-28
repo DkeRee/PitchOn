@@ -57,20 +57,20 @@ class Bubble {
 		}
 	}
 
-	pushIdleParticle() {
-		STAGE_CACHE.particles.push(new BubbleParticle(this.x, this.y, this.radius, this.color));
+	pushIdleParticle(color) {
+		STAGE_CACHE.particles.push(new BubbleParticle(this.x, this.y, this.radius, color));
 	}
 
-	pushRippleParticle() {
-		STAGE_CACHE.particles.push(new RippleParticle(this.x, this.y, this.radius, this.color));
+	pushRippleParticle(color) {
+		STAGE_CACHE.particles.push(new RippleParticle(this.x, this.y, this.radius, color));
 	}
 
-	killSelf() {
+	killSelf(color) {
 		for (var i = 0; i < 50; i++) {
-			this.pushIdleParticle();
+			this.pushIdleParticle(color);
 		}
 
-		this.pushRippleParticle();
+		this.pushRippleParticle(color);
 		this.delete = true;
 	}
 
@@ -123,11 +123,11 @@ class Bubble {
 				this.particleCheck = 0.1;
 
 				for (var i = 0; i < 5; i++) {
-					this.pushIdleParticle();
+					this.pushIdleParticle(this.color);
 				}
 			} else {
 				this.particleCheck = 2;
-				this.pushIdleParticle();
+				this.pushIdleParticle(this.color);
 			}
 		}
 	}
@@ -179,7 +179,7 @@ class Bubble {
 
 	updatePop() {
 		if (this.checkServerTouching() && holding) {
-			this.killSelf();
+			this.killSelf(this.color);
 			holding = false;
 		}
 	}
@@ -192,11 +192,10 @@ class Bubble {
 		this.updateHorizontal();
 		this.updateIdleParticle();
 		this.updateRadialFluctuation();
-		this.updatePop();
 
 		//touched sea
 		if (this.y + this.radius >= STAGE_CACHE.sea.y) {
-			this.killSelf();
+			this.killSelf("#EE4B2B");
 		}
 	}
 

@@ -31,3 +31,6 @@ function updateMousePos(clientX, clientY) {
 		y: clientY - rect.top
 	};
 }
+
+//MUSIC SYNTH
+const synth = new Tone.Synth().toDestination();
