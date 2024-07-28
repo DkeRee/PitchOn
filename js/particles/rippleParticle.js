@@ -1,15 +1,15 @@
 class RippleParticle extends Particle {
-	constructor(x, y, color) {
+	constructor(x, y, radius, color) {
 		super(x, y);
 		this.color = color;
-		this.radius = 1;
+		this.radius = radius;
 		this.opacity = 1;
-		this.radiusExpansion = 20;
+		this.radiusExpansion = 15;
 	}
 
 	update() {
 		this.radiusExpansion -= 0.9;
-		this.opacity -= 0.04;
+		this.opacity -= 0.062;
 
 		this.radius += this.radiusExpansion;
 
@@ -23,7 +23,7 @@ class RippleParticle extends Particle {
 		ctx.shadowColor = hexToRgbA(this.color, this.opacity);
 
 		ctx.strokeStyle = hexToRgbA(this.color, this.opacity);
-		ctx.lineWidth = 3;
+		ctx.lineWidth = 6;
 
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);

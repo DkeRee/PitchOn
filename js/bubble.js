@@ -27,6 +27,9 @@ class Bubble {
 		//particle watch
 		this.particleCheck = 0;
 
+		//bubble id
+		this.id = randRange(100000, 500000);
+
 		//delete flag
 		this.delete = false;
 	}
@@ -59,13 +62,27 @@ class Bubble {
 	}
 
 	pushRippleParticle() {
-		STAGE_CACHE.particles.push(new RippleParticle(this.x, this.y, this.color));
+		STAGE_CACHE.particles.push(new RippleParticle(this.x, this.y, this.radius, this.color));
 	}
 
-	update() {
-		//make bubble go down
-		this.y += this.yDec;
+	killSelf() {
+		for (var i = 0; i < 50; i++) {
+			this.pushIdleParticle();
+		}
 
+		this.pushRippleParticle();
+		this.delete = true;
+	}
+
+	isTouching() {
+ 		return this.isColliding(Object.assign({radius: 1}, MOUSE_POS));
+	}
+
+	checkServerTouching() {
+		return this.id == STAGE_CACHE.touchedBubble && STAGE_CACHE.touchFound;
+	}
+
+	updateHorizontal() {
 		//make bubble lerp to goal X
 		const xDist = Math.abs(this.goalX - this.x);
 		if (xDist > 5) {
@@ -93,10 +110,12 @@ class Bubble {
 			this.goalX = this.findNewGoal();
 			this.xMoving = false;
 		}
+	}
 
-		const touchingMouse = this.isColliding(Object.assign({radius: 1}, MOUSE_POS));
-
+	updateIdleParticle() {
 		//update particle system
+		const touchingMouse = this.checkServerTouching();
+
 		if (this.particleCheck > 0) {
 			this.particleCheck--;
 		} else {
@@ -111,8 +130,12 @@ class Bubble {
 				this.pushIdleParticle();
 			}
 		}
+	}
 
+	updateRadialFluctuation() {
+		const touchingMouse = this.checkServerTouching();
 
+		//make bubble fluctuate
 		const goalDist = Math.abs(this.goalRadius - this.radius);
 		if (touchingMouse) {
 			this.goalRadius = this.solidRadius + 25;
@@ -126,8 +149,6 @@ class Bubble {
 		}
 
 		this.passive = !(goalDist >= 10);
-
-		//make bubble fluctuate
 
 		if (this.passive) {
 			this.radius += this.expandRate;
@@ -154,15 +175,28 @@ class Bubble {
 				this.radius = this.goalRadius;
 			}
 		}
+	}
+
+	updatePop() {
+		if (this.checkServerTouching() && holding) {
+			this.killSelf();
+			holding = false;
+		}
+	}
+
+	update() {
+		//make bubble go down
+		this.y += this.yDec;
+
+		//other updates
+		this.updateHorizontal();
+		this.updateIdleParticle();
+		this.updateRadialFluctuation();
+		this.updatePop();
 
 		//touched sea
 		if (this.y + this.radius >= STAGE_CACHE.sea.y) {
-			for (var i = 0; i < 50; i++) {
-				this.pushIdleParticle();
-			}
-
-			this.pushRippleParticle();
-			this.delete = true;
+			this.killSelf();
 		}
 	}
 

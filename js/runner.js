@@ -5,7 +5,9 @@
 
 	STAGE_CACHE = {
 		particles: [],
-		bubbles: [new NaturalBubble(100, 600)],
+		touchedBubble: 0,
+		touchFound: false,
+		bubbles: [new NaturalBubble(100, 300), new NaturalBubble(400, 50), new NaturalBubble(500, 100), new NaturalBubble(200, 350)],
 		sea: new Sea(700)
 	}
 
@@ -27,6 +29,8 @@
 	requestAnimationFrame(globalStep);
 
 	function globalUpdate() {
+		STAGE_CACHE.touchFound = false;
+
 		for (var i = 0; i < STAGE_CACHE.particles.length; i++) {
 			const particle = STAGE_CACHE.particles[i];
 
@@ -44,6 +48,13 @@
 			if (bubble.delete) {
 				STAGE_CACHE.bubbles.splice(i, 1);
 				continue;
+			}
+
+			if (!STAGE_CACHE.touchFound) {
+				if (bubble.isTouching()) {
+					STAGE_CACHE.touchedBubble = bubble.id;
+					STAGE_CACHE.touchFound = true;
+				}
 			}
 
 			bubble.update();
