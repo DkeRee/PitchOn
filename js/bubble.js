@@ -12,6 +12,14 @@ class Bubble {
 		this.xAcc = 0.05;
 		this.xMoving = false;
 
+		//alarm
+		this.alarming = false;
+		this.alarmDecY = 10;
+		this.alarmRateX = -3;
+		this.alarmAccX = -4;
+		this.alarmXCounter = 0;
+		this.alarmOpacity = 1;
+
 		//yDec
 		this.yDec = 0.15;
 
@@ -19,7 +27,7 @@ class Bubble {
 		this.passive = true;
 
 		this.expandRate = 0.5;
-		this.expandAcc = 0.02;
+		this.expandAcc = -0.02;
 
 		this.passive = false;
 		this.goalRadius = this.solidRadius;
@@ -61,8 +69,13 @@ class Bubble {
 		STAGE_CACHE.particles.push(new BubbleParticle(this.x, this.y, this.radius, color));
 	}
 
-	pushRippleParticle(color) {
-		STAGE_CACHE.particles.push(new RippleParticle(this.x, this.y, this.radius, color));
+	pushRippleParticle(color, full) {
+		STAGE_CACHE.particles.push(new RippleParticle(this.x, this.y, this.radius, color, full));
+	}
+
+	alarmSelf() {
+		this.alarming = true;
+		this.pushRippleParticle("#EE4B2B", false);
 	}
 
 	killSelf(color) {
@@ -70,7 +83,7 @@ class Bubble {
 			this.pushIdleParticle(color);
 		}
 
-		this.pushRippleParticle(color);
+		this.pushRippleParticle(color, true);
 		this.delete = true;
 	}
 
@@ -82,39 +95,88 @@ class Bubble {
 		return this.id == STAGE_CACHE.touchedBubble && STAGE_CACHE.touchFound;
 	}
 
+	updateVertical() {
+		if (this.alarming) {
+			this.y += this.alarmDecY;
+			this.alarmDecY -= 0.5;
+			this.alarmOpacity -= 0.05;
+
+			if (this.alarmDecY <= this.yDec) {
+				this.alarmDecY = 10;
+				this.alarmRateX = -3;
+				this.alarmAccX = -4;
+				this.alarmXCounter = 0;
+				this.alarmOpacity = 1;
+				this.alarming = false;
+			}
+		} else {
+			this.y += this.yDec;
+		}
+	}
+
 	updateHorizontal() {
 		//make bubble lerp to goal X
-		const xDist = Math.abs(this.goalX - this.x);
-		if (xDist > 5) {
-			if (!this.xMoving) {
-				this.xAcc = xDist / 10000;
+		if (!this.alarming) {
+			this.alarmX
 
-				if (this.x < this.goalX) {
-					this.xAcc = Math.abs(this.xAcc);
-				} else {
-					this.xAcc = -Math.abs(this.xAcc);
+			const xDist = Math.abs(this.goalX - this.x);
+			if (xDist > 5) {
+				if (!this.xMoving) {
+					this.xAcc = xDist / 10000;
+
+					if (this.x < this.goalX) {
+						this.xAcc = Math.abs(this.xAcc);
+					} else {
+						this.xAcc = -Math.abs(this.xAcc);
+					}
+
+					this.xRate = 0;
+					this.xMoving = true;
 				}
 
-				this.xRate = 0;
-				this.xMoving = true;
+				this.xRate += this.xAcc;
+
+				if (Math.abs(this.xRate) > (xDist / 50) && ((this.xRate > 0 && this.xAcc > 0) || (this.xRate < 0 && this.xAcc < 0))) {
+					this.xAcc *= -1;
+				}
+
+				this.x += this.xRate;
+			} else {
+				this.goalX = this.findNewGoal();
+				this.xMoving = false;
 			}
-
-			this.xRate += this.xAcc;
-
-			if (Math.abs(this.xRate) > (xDist / 50) && ((this.xRate > 0 && this.xAcc > 0) || (this.xRate < 0 && this.xAcc < 0))) {
-				this.xAcc *= -1;
-			}
-
-			this.x += this.xRate;
 		} else {
-			this.goalX = this.findNewGoal();
-			this.xMoving = false;
+			this.alarmRateX += this.alarmAccX;
+
+			if (this.alarmXCounter > 0) {
+				this.alarmXCounter--;
+			} else {
+				this.alarmXCounter = 3;
+				this.alarmAccX *= -1;
+
+				if (this.alarmAccX > 0) {
+					this.alarmAccX -= 0.4;
+				} else {
+					this.alarmAccX += 0.4;
+				}
+			}
+
+			this.x += this.alarmRateX;
 		}
 	}
 
 	updateIdleParticle() {
 		//update particle system
 		const touchingMouse = this.checkServerTouching();
+		const color = this.alarming ? "#EE4B2B" : this.color;
+
+		if (this.alarming) {
+			if (this.alarmXCounter % 2 == 0) {
+				for (var i = 0; i < 10; i++) {
+					this.pushIdleParticle("#EE4B2B");
+				}
+			}
+		}
 
 		if (this.particleCheck > 0) {
 			this.particleCheck--;
@@ -123,11 +185,11 @@ class Bubble {
 				this.particleCheck = 0.1;
 
 				for (var i = 0; i < 5; i++) {
-					this.pushIdleParticle(this.color);
+					this.pushIdleParticle(color);
 				}
 			} else {
 				this.particleCheck = 2;
-				this.pushIdleParticle(this.color);
+				this.pushIdleParticle(color);
 			}
 		}
 	}
@@ -177,22 +239,12 @@ class Bubble {
 		}
 	}
 
-	updatePop() {
-		if (this.checkServerTouching() && holding) {
-			this.killSelf(this.color);
-			holding = false;
-		}
-	}
-
 	update() {
-		//make bubble go down
-		this.y += this.yDec;
-
 		//other updates
+		this.updateVertical();
 		this.updateHorizontal();
 		this.updateIdleParticle();
 		this.updateRadialFluctuation();
-		this.updatePop();
 
 		//touched sea
 		if (this.y + this.radius >= STAGE_CACHE.sea.y) {
@@ -203,15 +255,27 @@ class Bubble {
 	render() {
 		ctx.shadowBlur = 10;
 		ctx.shadowColor = this.color;
-		ctx.fillStyle = hexToRgbA(this.color, 0.4);
 
+		ctx.fillStyle = hexToRgbA(this.color, 0.4);
 		ctx.strokeStyle = this.color;
+
 		ctx.lineWidth = 5;
 
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
 		ctx.fill();
 		ctx.stroke();
+
+		if (this.alarming) {
+			ctx.fillStyle = hexToRgbA("#EE4B2B", this.alarmOpacity);
+			ctx.strokeStyle = hexToRgbA("#EE4B2B", this.alarmOpacity);
+
+			ctx.beginPath();
+			ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+			ctx.fill();
+			ctx.stroke();
+		}
+
 		ctx.shadowBlur = 0;
 	}
 }

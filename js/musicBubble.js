@@ -7,7 +7,7 @@ class MusicBubble extends Bubble {
 		this.playing = false;
 	}
 
-	update() {
+	updateSound() {
 		const now = Tone.now();
 		if (this.checkServerTouching()) {
 			if (!this.playing) {
@@ -20,7 +20,25 @@ class MusicBubble extends Bubble {
 				this.playing = false;
 			}
 		}
+	}
 
+	updatePop() {
+		if (this.checkServerTouching() && holding && !this.alarming) {
+			//check for whether you have the right sound selected
+			if (this.note == STAGE_CACHE.toneMenu.getSelected()) {
+				this.killSelf(this.color);
+			} else {
+				this.alarmSelf();
+			}
+
+
+			holding = false;
+		}
+	}
+
+	update() {
+		this.updateSound();
+		this.updatePop();
 		super.update();
 	}
 }

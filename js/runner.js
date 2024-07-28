@@ -7,7 +7,8 @@
 		particles: [],
 		touchedBubble: 0,
 		touchFound: false,
-		bubbles: [new NaturalBubble(100, 300), new NaturalBubble(400, 50), new NaturalBubble(500, 100), new NaturalBubble(200, 350)],
+		bubbles: [new NaturalBubble(100, 300)],
+		toneMenu: new ToneMenu(["C4", "D4", "E4", "F4", "G4", "A4", "B4"]),
 		sea: new Sea(700)
 	}
 
@@ -64,6 +65,7 @@
 			bubble.update();
 		}
 
+		STAGE_CACHE.toneMenu.update();
 		STAGE_CACHE.sea.update();
 	}
 
@@ -91,6 +93,9 @@
 
 		//render sea
 		STAGE_CACHE.sea.render();
+
+		//render tonemenu
+		STAGE_CACHE.toneMenu.render();
 	}
 
 	canvas.addEventListener("mousedown", e => {
