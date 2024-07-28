@@ -47,13 +47,6 @@ class Sea {
 		}
 
 		this.renderOffsetVel += this.renderOffsetAcc;
-
-		//testing
-		if (KEYBINDS[82]) {
-			if (!this.moving) {
-				this.goalHeight -= 200;
-			}
-		}
 	}
 
 	render() {

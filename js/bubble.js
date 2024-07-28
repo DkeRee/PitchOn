@@ -192,6 +192,7 @@ class Bubble {
 		this.updateHorizontal();
 		this.updateIdleParticle();
 		this.updateRadialFluctuation();
+		this.updatePop();
 
 		//touched sea
 		if (this.y + this.radius >= STAGE_CACHE.sea.y) {
