@@ -3,14 +3,14 @@
 	const BACKGROUND_COLOR_STRONG = "#281d42";
 	const BACKGROUND_COLOR_WEAK = "#191229";
 
-	STAGE_CACHE = {
-		particles: [],
-		touchedBubble: 0,
-		touchFound: false,
-		bubbles: [new NaturalBubble(100, 50), new NaturalBubble(400, 50), new NaturalBubble(500, 50), new NaturalBubble(200, 50)],
-		toneMenu: new ToneMenu(["C4", "D4", "E4", "F4", "G4", "A4", "B4"]),
-		sea: new Sea(700)
-	}
+	STAGE_CACHE = new RoundManager({
+		fallingSpeed: 0.4,
+		wantOctave: false,
+		toneRange: ["C", "D", "E", "F", "G", "A", "B"],
+		waveCount: 2,
+		levelCount: 2,
+		maxBubbles: 5
+	});
 
 	function globalStep(time) {
 		accTime += (time - lastTime) / 1000;
@@ -30,43 +30,7 @@
 	requestAnimationFrame(globalStep);
 
 	function globalUpdate() {
-		STAGE_CACHE.touchFound = false;
-
-		for (var i = 0; i < STAGE_CACHE.particles.length; i++) {
-			const particle = STAGE_CACHE.particles[i];
-
-			if (particle.delete) {
-				STAGE_CACHE.particles.splice(i, 1);
-				continue;
-			}
-
-			particle.update();
-		}
-
-		for (var i = 0; i < STAGE_CACHE.bubbles.length; i++) {
-			const bubble = STAGE_CACHE.bubbles[i];
-
-			if (bubble.delete) {
-				if (bubble.playing) {
-					bubbleToneSynth.triggerRelease(Tone.now());
-				}
-
-				STAGE_CACHE.bubbles.splice(i, 1);
-				continue;
-			}
-
-			if (!STAGE_CACHE.touchFound) {
-				if (bubble.isTouching()) {
-					STAGE_CACHE.touchedBubble = bubble.id;
-					STAGE_CACHE.touchFound = true;
-				}
-			}
-
-			bubble.update();
-		}
-
-		STAGE_CACHE.toneMenu.update();
-		STAGE_CACHE.sea.update();
+		STAGE_CACHE.update();
 	}
 
 	function globalRender() {
@@ -81,21 +45,7 @@
 		ctx.fillStyle = grd;
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-		//render particles
-		for (var i = 0; i < STAGE_CACHE.particles.length; i++) {
-			STAGE_CACHE.particles[i].render();
-		}
-
-		//render bubbles
-		for (var i = 0; i < STAGE_CACHE.bubbles.length; i++) {
-			STAGE_CACHE.bubbles[i].render();
-		}
-
-		//render sea
-		STAGE_CACHE.sea.render();
-
-		//render tonemenu
-		STAGE_CACHE.toneMenu.render();
+		STAGE_CACHE.render();
 	}
 
 	canvas.addEventListener("mousedown", e => {

@@ -14,7 +14,7 @@ class ToneMenu {
 		this.color = "#ccbaf7";
 		this.width = 100 - this.toneList.length * 8;
 		this.height = this.width * this.toneList.length;
-		this.x = -40;
+		this.x = -100;
 		this.y = (CANVAS_HEIGHT / 2) - (this.width / 2) * this.toneList.length;
 
 		//lerped container
@@ -30,7 +30,7 @@ class ToneMenu {
 		this.cursorVel = 0;
 		this.cursorAcc = 0;
 
-		this.setNewGoalContainer(10);
+		this.setNewGoalContainer(15);
 	}
 
 	getSelected() {
@@ -49,7 +49,7 @@ class ToneMenu {
 		this.goalX = newGoal;
 		const dist = this.goalX - this.x;
 
-		this.containerVel = dist / 14;
+		this.containerVel = dist / 16;
 		this.containerAcc = (Math.abs(dist) / 500) * -Math.sign(this.containerVel);
 	}
 
@@ -133,7 +133,7 @@ class ToneMenu {
 			ctx.font = `${fontSize}px UniSansHeavy`;
 			ctx.fillStyle = this.color;
 			ctx.textAlign = "center";
-			ctx.fillText(this.toneList[i].substring(0, 1), this.x + this.width / 2, (this.y + i * this.width) + this.width / 2 + fontSize / 2.8);
+			ctx.fillText(this.toneList[i], this.x + this.width / 2, (this.y + i * this.width) + this.width / 2 + fontSize / 2.8);
 		}
 
 		//render cursor

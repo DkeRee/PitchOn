@@ -21,7 +21,7 @@ class Bubble {
 		this.alarmOpacity = 1;
 
 		//yDec
-		this.yDec = 0.4;
+		this.yDec = STAGE_CACHE.fallingSpeed;
 
 		//bubble inflation
 		this.passive = true;

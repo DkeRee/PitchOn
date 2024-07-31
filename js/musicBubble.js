@@ -1,9 +1,9 @@
 class MusicBubble extends Bubble {
-	constructor(x, y, radius, color, noteRange) {
+	constructor(x, y, radius, color, note) {
 		super(x, y, radius, color);
 
 		//music stuffs
-		this.note = noteRange[randRange(0, noteRange.length - 1)];
+		this.note = note;
 		this.playing = false;
 	}
 
@@ -25,7 +25,8 @@ class MusicBubble extends Bubble {
 	updatePop() {
 		if (this.checkServerTouching() && holding && !this.alarming) {
 			//check for whether you have the right sound selected
-			if (this.note == STAGE_CACHE.toneMenu.getSelected()) {
+			//use substring to disregard octaves
+			if (this.note.substring(0, 1) == STAGE_CACHE.toneMenu.getSelected()) {
 				playSound(popGood);
 				this.killSelf(this.color);
 			} else {
