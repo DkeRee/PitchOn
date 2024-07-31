@@ -59,8 +59,6 @@ class ToneMenu {
 			this.x += this.containerVel;
 			this.containerVel += this.containerAcc;
 
-			console.log(this.x)
-
 			if (Math.abs(this.goalX - this.x) <= 2) {
 				//end travel
 				this.x = this.goalX;
@@ -80,6 +78,7 @@ class ToneMenu {
 					this.held = true;
 					this.lastHeld = X;
 					this.setNewGoalCursor(bareY + this.width);
+					playSound(switchTone);
 				}
 			} else if (KEYBINDS[90]) {
 				//Z
@@ -88,6 +87,7 @@ class ToneMenu {
 					this.held = true;
 					this.lastHeld = Z;
 					this.setNewGoalCursor(bareY - this.width);
+					playSound(switchTone);
 				}
 			}
 		} else {

@@ -32,5 +32,19 @@ function updateMousePos(clientX, clientY) {
 	};
 }
 
+//AUDIO STUFFS//
+
 //MUSIC SYNTH
 const bubbleToneSynth = new Tone.Synth().toDestination();
+
+//SOUND FX
+const incorrectPitch = new Audio("soundFx/incorrectPitch.wav");
+const switchTone = new Audio("soundFx/switchTone.mp3");
+const pop = new Audio("soundFx/pop.wav");
+const popGood = new Audio("soundFx/popGood.wav");
+const popBad = new Audio("soundFx/popBad.wav");
+
+function playSound(sound) {
+	sound.currentTime = 0;
+	sound.play();
+}

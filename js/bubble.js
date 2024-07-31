@@ -79,6 +79,8 @@ class Bubble {
 	}
 
 	killSelf(color) {
+		playSound(pop);
+
 		for (var i = 0; i < 50; i++) {
 			this.pushIdleParticle(color);
 		}
@@ -248,6 +250,7 @@ class Bubble {
 
 		//touched sea
 		if (this.y + this.radius >= STAGE_CACHE.sea.y) {
+			playSound(popBad);
 			this.killSelf("#EE4B2B");
 		}
 	}

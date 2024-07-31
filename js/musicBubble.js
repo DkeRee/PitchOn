@@ -26,8 +26,10 @@ class MusicBubble extends Bubble {
 		if (this.checkServerTouching() && holding && !this.alarming) {
 			//check for whether you have the right sound selected
 			if (this.note == STAGE_CACHE.toneMenu.getSelected()) {
+				playSound(popGood);
 				this.killSelf(this.color);
 			} else {
+				playSound(incorrectPitch);
 				this.alarmSelf();
 			}
 
