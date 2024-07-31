@@ -43,6 +43,8 @@ const switchTone = new Audio("soundFx/switchTone.mp3");
 const pop = new Audio("soundFx/pop.wav");
 const popGood = new Audio("soundFx/popGood.wav");
 const popBad = new Audio("soundFx/popBad.wav");
+const wobbleIn = new Audio("soundFx/wobbleIn.wav");
+const popIn = new Audio("soundFx/popIn.wav");
 
 function playSound(sound) {
 	sound.currentTime = 0;

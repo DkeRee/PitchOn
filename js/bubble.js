@@ -3,7 +3,7 @@ class Bubble {
 		this.x = x;
 		this.y = y;
 		this.solidRadius = radius;
-		this.radius = this.solidRadius;
+		this.radius = 0;
 		this.color = color;
 
 		//xMovement
@@ -38,6 +38,8 @@ class Bubble {
 		//bubble id
 		this.id = randRange(100000, 500000);
 
+		this.pushSpawnParticles();
+
 		//delete flag
 		this.delete = false;
 	}
@@ -65,12 +67,26 @@ class Bubble {
 		}
 	}
 
+	pushSpawnParticles() {
+		playSound(popIn);
+		playSound(wobbleIn);
+		this.pushRippleParticle(this.color, false);
+
+		for (var i = 0; i < 50; i++) {
+			this.pushFadeParticle(this.color);
+		}
+	}
+
 	pushIdleParticle(color) {
 		STAGE_CACHE.particles.push(new BubbleParticle(this.x, this.y, this.radius, color));
 	}
 
 	pushRippleParticle(color, full) {
 		STAGE_CACHE.particles.push(new RippleParticle(this.x, this.y, this.radius, color, full));
+	}
+
+	pushFadeParticle(color) {
+		STAGE_CACHE.particles.push(new BubbleFade(this.x, this.y, color));
 	}
 
 	alarmSelf() {
@@ -83,6 +99,10 @@ class Bubble {
 
 		for (var i = 0; i < 50; i++) {
 			this.pushIdleParticle(color);
+		}
+
+		for (var i = 0; i < 30; i++) {
+			this.pushFadeParticle(color);
 		}
 
 		this.pushRippleParticle(color, true);

@@ -74,8 +74,15 @@ class RoundManager {
 		}
 	}
 
+	updateRound() {
+		if (this.startDone) {
+			
+		}
+	}
+
 	updateLogic() {
 		this.initializationCare();
+		this.updateRound();
 	}
 
 	updateContent() {
