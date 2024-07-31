@@ -5,9 +5,9 @@ class Sea {
 		this.yVel = 0;
 		this.moving = false;
 
-		this.renderOffset = 0;
-		this.renderOffsetVel = 0;
-		this.renderOffsetAcc = degToRad(1);
+		this.amp = 0;
+		this.ampVel = 0;
+		this.ampAcc = degToRad(9);
 	}
 
 	newGoal(goalHeight) {
@@ -40,19 +40,17 @@ class Sea {
 			}
 		}
 
+		this.amp += this.ampVel;
 
-		this.renderOffset += this.renderOffsetVel;
-		if (Math.abs(this.renderOffsetVel) > degToRad(40)) {
-			this.renderOffsetAcc *= -1;
+		if (Math.abs(this.ampVel) > degToRad(100) && Math.sign(this.ampAcc) == Math.sign(this.amp)) {
+			this.ampAcc *= -1;
 		}
 
-		this.renderOffsetVel += this.renderOffsetAcc;
+		this.ampVel += this.ampAcc;
 	}
 
 	render() {
-		const sine = [];
-		const cosine = [];
-		const amp = 15;
+		const wave = [];
 
 		ctx.shadowBlur = 20;
 		ctx.shadowColor = "#C2A7FF";
@@ -60,20 +58,29 @@ class Sea {
 		ctx.strokeStyle = "#C2A7FF";
 		ctx.lineWidth = 3;
 
-		//sine wave increment
 		for (var i = 0; i < CANVAS_WIDTH; i++) {
-			sine.push([i, amp * Math.sin(this.renderOffset + degToRad((5 * i)))]);
+			wave.push([i, (this.amp) * Math.sin(degToRad((5 * i)))]);
 		}
 
-		//cosine wave increment
-		for (var i = 0; i < CANVAS_WIDTH; i++) {
-			cosine.push([i, amp * Math.cos(-this.renderOffset + degToRad((5 * i)))]);
-		}
-
+		//highest
 		ctx.beginPath();
 
-		for (var i = 0; i < sine.length; i++) {
-			const point = sine[i];
+		for (var i = 0; i < wave.length; i++) {
+			const point = wave[i];
+			if (i == 0) {
+				ctx.moveTo(point[0], this.y + point[1] + 15)
+			} else {
+				ctx.lineTo(point[0], this.y + point[1] + 15);
+			}
+		}
+
+		ctx.stroke();
+
+		//middle
+		ctx.beginPath();
+
+		for (var i = 0; i < wave.length; i++) {
+			const point = wave[i];
 			if (i == 0) {
 				ctx.moveTo(point[0], this.y + point[1])
 			} else {
@@ -83,13 +90,15 @@ class Sea {
 
 		ctx.stroke();
 
+		//lowest
 		ctx.beginPath();
-		for (var i = 0; i < cosine.length; i++) {
-			const point = cosine[i];
+
+		for (var i = 0; i < wave.length; i++) {
+			const point = wave[i];
 			if (i == 0) {
-				ctx.moveTo(point[0], this.y + point[1]);
+				ctx.moveTo(point[0], this.y + point[1] - 15)
 			} else {
-				ctx.lineTo(point[0], this.y + point[1]);
+				ctx.lineTo(point[0], this.y + point[1] - 15);
 			}
 		}
 

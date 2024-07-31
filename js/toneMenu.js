@@ -141,6 +141,25 @@ class ToneMenu {
 		ctx.shadowColor = this.colorC;
 		ctx.strokeStyle = this.colorC;
 		ctx.strokeRect(this.cX, this.cY, this.width, this.width);
+
+		//render cursor Z and X indicators
+		ctx.fillStyle = this.colorC;
+		ctx.font = `${fontSize / 2.5}px UniSansHeavy`;
+
+		//Z
+		ctx.beginPath();
+		ctx.arc(this.cX + this.width, this.cY, this.width / 5, 0, 2 * Math.PI, false);
+		ctx.fill();
+
+		//X
+		ctx.beginPath();
+		ctx.arc(this.cX + this.width, this.cY + this.width, this.width / 5, 0, 2 * Math.PI, false);
+		ctx.fill();
+
+		ctx.fillStyle = "white";
+		ctx.fillText("Z", this.cX + this.width, this.cY + (this.width / 9));
+		ctx.fillText("X", this.cX + this.width, this.cY + this.width + (this.width / 9));
+
 		ctx.shadowBlur = 0;
 	}
 }
