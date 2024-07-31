@@ -144,7 +144,7 @@ class ToneMenu {
 
 		//render cursor Z and X indicators
 		ctx.fillStyle = this.colorC;
-		ctx.font = `${fontSize / 2.5}px UniSansHeavy`;
+		ctx.font = `${fontSize / 3}px UniSansHeavy`;
 
 		//Z
 		ctx.beginPath();
@@ -157,8 +157,8 @@ class ToneMenu {
 		ctx.fill();
 
 		ctx.fillStyle = "white";
-		ctx.fillText("Z", this.cX + this.width, this.cY + (this.width / 9));
-		ctx.fillText("X", this.cX + this.width, this.cY + this.width + (this.width / 9));
+		ctx.fillText("Z", this.cX + this.width, this.cY + (this.width / 10));
+		ctx.fillText("X", this.cX + this.width, this.cY + this.width + (this.width / 10));
 
 		ctx.shadowBlur = 0;
 	}
