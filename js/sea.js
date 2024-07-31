@@ -10,7 +10,7 @@ class Sea {
 		this.ampAcc = degToRad(9);
 	}
 
-	newGoal(goalHeight) {
+	setNewGoal(goalHeight) {
 		this.goalHeight = goalHeight;
 	}
 

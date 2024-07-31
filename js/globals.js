@@ -50,3 +50,6 @@ function playSound(sound) {
 	sound.currentTime = 0;
 	sound.play();
 }
+
+//OTHER CONSTANTS
+const NATURAL_BUBBLE_RADIUS = 60;

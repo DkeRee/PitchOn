@@ -3,15 +3,6 @@
 	const BACKGROUND_COLOR_STRONG = "#281d42";
 	const BACKGROUND_COLOR_WEAK = "#191229";
 
-	STAGE_CACHE = new RoundManager({
-		fallingSpeed: 0.4,
-		wantOctave: false,
-		toneRange: ["C", "D", "E", "F", "G", "A", "B"],
-		waveCount: 2,
-		levelCount: 2,
-		maxBubbles: 5
-	});
-
 	function globalStep(time) {
 		accTime += (time - lastTime) / 1000;
 
@@ -30,7 +21,8 @@
 	requestAnimationFrame(globalStep);
 
 	function globalUpdate() {
-		STAGE_CACHE.update();
+		if (STAGE_CACHE)
+			STAGE_CACHE.update();
 	}
 
 	function globalRender() {
@@ -45,7 +37,8 @@
 		ctx.fillStyle = grd;
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-		STAGE_CACHE.render();
+		if (STAGE_CACHE)
+			STAGE_CACHE.render();
 	}
 
 	canvas.addEventListener("mousedown", e => {
@@ -63,6 +56,34 @@
 
 	window.addEventListener("keydown", e => {
 		KEYBINDS[e.keyCode || e.which] = true;
+
+		var create = false;
+
+		//temp
+		if (KEYBINDS[82]) {
+			if (!STAGE_CACHE) {
+				create = true;
+			} else {
+				if (!STAGE_CACHE.ongoing)
+					create = true;
+			}
+		}
+
+		if (create) {
+			STAGE_CACHE = new RoundManager({
+				fallingSpeed: 0.4,
+				wantOctave: false,
+				toneRange: ["C4", "D4", "E4", "F4", "G4", "A4", "B4"],
+				waveCount: 3,
+				levelCount: 3,
+				minBubbles: 4,
+				maxBubbles: 6,
+				minSpawnDelay: 4,
+				maxSpawnDelay: 40,
+				minSpawnReach: 50,
+				maxSpawnReach: 150
+			});
+		}
 	});
 
 	window.addEventListener("keyup", e => {

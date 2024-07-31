@@ -21,7 +21,7 @@ class Bubble {
 		this.alarmOpacity = 1;
 
 		//yDec
-		this.yDec = STAGE_CACHE.fallingSpeed;
+		this.yDec = STAGE_CACHE.settings.fallingSpeed;
 
 		//bubble inflation
 		this.passive = true;
@@ -92,6 +92,10 @@ class Bubble {
 	alarmSelf() {
 		this.alarming = true;
 		this.pushRippleParticle("#EE4B2B", false);
+
+		for (var i = 0; i < 5; i++) {
+			this.pushFadeParticle("#EE4B2B");
+		}
 	}
 
 	killSelf(color) {
