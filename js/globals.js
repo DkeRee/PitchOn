@@ -33,4 +33,4 @@ function updateMousePos(clientX, clientY) {
 }
 
 //MUSIC SYNTH
-const synth = new Tone.Synth().toDestination();
+const bubbleToneSynth = new Tone.Synth().toDestination();

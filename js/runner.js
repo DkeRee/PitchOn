@@ -7,7 +7,7 @@
 		particles: [],
 		touchedBubble: 0,
 		touchFound: false,
-		bubbles: [new NaturalBubble(100, 300)],
+		bubbles: [new NaturalBubble(100, 50), new NaturalBubble(400, 50), new NaturalBubble(500, 50), new NaturalBubble(200, 50)],
 		toneMenu: new ToneMenu(["C4", "D4", "E4", "F4", "G4", "A4", "B4"]),
 		sea: new Sea(700)
 	}
@@ -48,7 +48,7 @@
 
 			if (bubble.delete) {
 				if (bubble.playing) {
-					synth.triggerRelease(Tone.now());
+					bubbleToneSynth.triggerRelease(Tone.now());
 				}
 
 				STAGE_CACHE.bubbles.splice(i, 1);

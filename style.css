@@ -5,6 +5,11 @@ html, body {
 	background-color: #191229;
 }
 
+@font-face {
+	font-family: "UniSansHeavy";
+	src: url("fonts/uni-sans.heavy-caps.otf") format("opentype");
+}
+
 #game-container {
 	position: absolute;
 	width: 100%;

@@ -21,7 +21,7 @@ class Bubble {
 		this.alarmOpacity = 1;
 
 		//yDec
-		this.yDec = 0.15;
+		this.yDec = 0.4;
 
 		//bubble inflation
 		this.passive = true;

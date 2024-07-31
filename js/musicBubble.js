@@ -11,12 +11,12 @@ class MusicBubble extends Bubble {
 		const now = Tone.now();
 		if (this.checkServerTouching()) {
 			if (!this.playing) {
-				synth.triggerAttack(this.note, now);
+				bubbleToneSynth.triggerAttack(this.note, now);
 				this.playing = true;
 			}
 		} else {
 			if (this.playing) {
-				synth.triggerRelease(now);
+				bubbleToneSynth.triggerRelease(now);
 				this.playing = false;
 			}
 		}
