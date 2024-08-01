@@ -73,6 +73,7 @@
 			STAGE_CACHE = new RoundManager({
 				fallingSpeed: 0.4,
 				wantOctave: false,
+				maxLives: 3,
 				toneRange: ["C4", "D4", "E4", "F4", "G4", "A4", "B4"],
 				waveCount: 4,
 				levelCount: 3,

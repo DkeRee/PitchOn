@@ -98,6 +98,16 @@ class Bubble {
 		}
 	}
 
+	onlyShrink() {
+		this.pushRippleParticle(this.color, false);
+
+		for (var i = 0; i < 30; i++) {
+			this.pushFadeParticle(this.color);
+		}
+
+		this.goalRadius = 0;
+	}
+
 	killSelf(color) {
 		playSound(pop);
 
@@ -193,29 +203,31 @@ class Bubble {
 
 	updateIdleParticle() {
 		//update particle system
-		const touchingMouse = this.checkServerTouching();
-		const color = this.alarming ? DANGER_COLOR : this.color;
+		if (!STAGE_CACHE.finishing) {
+			const touchingMouse = this.checkServerTouching();
+			const color = this.alarming ? DANGER_COLOR : this.color;
 
-		if (this.alarming) {
-			if (this.alarmXCounter % 2 == 0) {
-				for (var i = 0; i < 10; i++) {
-					this.pushIdleParticle(DANGER_COLOR);
+			if (this.alarming) {
+				if (this.alarmXCounter % 2 == 0) {
+					for (var i = 0; i < 10; i++) {
+						this.pushIdleParticle(DANGER_COLOR);
+					}
 				}
 			}
-		}
 
-		if (this.particleCheck > 0) {
-			this.particleCheck--;
-		} else {
-			if (touchingMouse) {
-				this.particleCheck = 0.1;
+			if (this.particleCheck > 0) {
+				this.particleCheck--;
+			} else {
+				if (touchingMouse) {
+					this.particleCheck = 0.1;
 
-				for (var i = 0; i < 5; i++) {
+					for (var i = 0; i < 5; i++) {
+						this.pushIdleParticle(color);
+					}
+				} else {
+					this.particleCheck = 2;
 					this.pushIdleParticle(color);
 				}
-			} else {
-				this.particleCheck = 2;
-				this.pushIdleParticle(color);
 			}
 		}
 	}
@@ -223,12 +235,18 @@ class Bubble {
 	updateRadialFluctuation() {
 		const touchingMouse = this.checkServerTouching();
 
+		if (STAGE_CACHE.finishing && this.radius == 0) {
+			this.delete = true;
+		}
+
 		//make bubble fluctuate
 		const goalDist = Math.abs(this.goalRadius - this.radius);
-		if (touchingMouse) {
-			this.goalRadius = this.solidRadius + 25;
-		} else {
-			this.goalRadius = this.solidRadius;
+		if (!STAGE_CACHE.finishing) {
+			if (touchingMouse) {
+				this.goalRadius = this.solidRadius + 25;
+			} else {
+				this.goalRadius = this.solidRadius;
+			}
 		}
 
 		//snap back
@@ -236,7 +254,7 @@ class Bubble {
 			this.radius = this.goalRadius;
 		}
 
-		this.passive = !(goalDist >= 10);
+		this.passive = !(goalDist >= 10) && !STAGE_CACHE.finishing;
 
 		if (this.passive) {
 			this.radius += this.expandRate;
@@ -263,6 +281,10 @@ class Bubble {
 				this.radius = this.goalRadius;
 			}
 		}
+
+		if (this.radius < 0) {
+			this.radius = 0;
+		}
 	}
 
 	update() {
@@ -276,6 +298,8 @@ class Bubble {
 		if (this.y + this.radius >= STAGE_CACHE.sea.y) {
 			STAGE_CACHE.hurtOpacity = 0.5;
 			playSound(popBad);
+
+			STAGE_CACHE.healthBar.registerHurt();
 			this.killSelf(DANGER_COLOR);
 		}
 	}

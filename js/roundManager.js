@@ -5,6 +5,7 @@
 	Param Details:
 		fallingSpeed -> how fast the bubbles will fall, aka difficulty gouge
 		wantOctave -> whether we want to add random octaves into the mix
+		maxLives -> how many max lives we will have
 		toneRange -> gives range of tones disregarding octaves
 		waveCount -> how many waves of bubbles we want to spawn per level, each wave will have more and more bubbles
 		levelCount -> how many levels we want to have
@@ -14,8 +15,6 @@
 		maxSpawnDelay -> max bubble spawn delay 
 		minSpawnReach -> minimum reach from top of screen that bubbles spawns in
 		maxSpawnReach -> maximum reach from top of screen that bubbles spawns in
-
-		//add lives later
 */
 
 
@@ -32,6 +31,7 @@ class RoundManager {
 		this.touchedBubble = 0;
 		this.touchFound = false;
 		this.bubbles = [];
+		this.healthBar;
 		this.toneMenu;
 		this.sea;
 
@@ -84,9 +84,23 @@ class RoundManager {
 				}
 
 				this.toneMenu = new ToneMenu(toneMenuRange);
+				this.healthBar = new HealthBar(this.settings.maxLives);
 				this.startDone = true;
 			}
 		}
+	}
+
+	endRound() {
+		this.finishing = true;
+
+		for (var i = 0; i < this.bubbles.length; i++) {
+			const bubble = this.bubbles[i];
+			bubble.onlyShrink();
+		}
+
+		this.healthBar.setNewGoalX(CANVAS_WIDTH + 60);
+		this.sea.setNewGoal(800);
+		this.toneMenu.setNewGoalContainer(-100);
 	}
 
 	spawnBubble() {
@@ -118,10 +132,7 @@ class RoundManager {
 							if (this.level + 1 > this.settings.levelCount) {
 								//we finished the game!
 								playSound(gameFinish);
-								this.finishing = true;
-
-								this.sea.setNewGoal(800);
-								this.toneMenu.setNewGoalContainer(-100);
+								this.endRound();
 							} else {
 								this.spawningIn = true;
 								this.level++;
@@ -246,6 +257,7 @@ class RoundManager {
 			bubble.update();
 		}
 
+		this.healthBar.update();
 		this.toneMenu.update();
 		this.sea.update();
 		this.updateHurt();
@@ -277,6 +289,9 @@ class RoundManager {
 
 		//render tonemenu
 		this.toneMenu.render();
+
+		//render healthbar
+		this.healthBar.render();
 
 		//render hurt
 		ctx.fillStyle = hexToRgbA(DANGER_COLOR, this.hurtOpacity);

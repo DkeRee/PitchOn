@@ -50,6 +50,7 @@ const popIn = new Audio("soundFx/popIn.wav");
 const levelBeat = new Audio("soundFx/levelBeat.wav");
 const waveBeat = new Audio("soundFx/waveBeat.wav");
 const gameFinish = new Audio("soundFx/gameFinish.wav");
+const gameFail = new Audio("soundFx/gameFail.wav");
 
 function playSound(sound) {
 	sound.currentTime = 0;
