@@ -118,7 +118,7 @@ class RoundManager {
 	}
 
 	updateRound() {
-		if (this.startDone && !this.finishing) {
+		if (this.startDone && !this.finishing && this.healthBar.life > 0) {
 			if (this.breakDelay == 0) {
 				if (!this.spawningIn) {
 					//check for whether wave is over
