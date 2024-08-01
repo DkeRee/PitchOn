@@ -74,14 +74,14 @@
 				fallingSpeed: 0.4,
 				wantOctave: false,
 				toneRange: ["C4", "D4", "E4", "F4", "G4", "A4", "B4"],
-				waveCount: 3,
+				waveCount: 4,
 				levelCount: 3,
 				minBubbles: 4,
-				maxBubbles: 6,
+				maxBubbles: 7,
 				minSpawnDelay: 4,
 				maxSpawnDelay: 40,
-				minSpawnReach: 50,
-				maxSpawnReach: 150
+				minSpawnReach: 100,
+				maxSpawnReach: 300
 			});
 		}
 	});

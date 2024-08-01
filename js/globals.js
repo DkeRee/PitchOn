@@ -45,6 +45,9 @@ const popGood = new Audio("soundFx/popGood.wav");
 const popBad = new Audio("soundFx/popBad.wav");
 const wobbleIn = new Audio("soundFx/wobbleIn.wav");
 const popIn = new Audio("soundFx/popIn.wav");
+const levelBeat = new Audio("soundFx/levelBeat.wav");
+const waveBeat = new Audio("soundFx/waveBeat.wav");
+const gameFinish = new Audio("soundFx/gameFinish.wav");
 
 function playSound(sound) {
 	sound.currentTime = 0;

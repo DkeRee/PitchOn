@@ -44,6 +44,12 @@ class RoundManager {
 		this.spawnCounter = randRange(this.settings.minSpawnDelay, this.settings.maxSpawnDelay);
 		this.breakDelay = 0;
 		this.finishing = false;
+
+		//level text
+		this.levelTextCount = 1;
+		this.levelTextOpacity = 0;
+		this.pauseCount = 90;
+		this.fadeIn = true;
 	}
 
 	initializationCare() {
@@ -110,6 +116,7 @@ class RoundManager {
 							//defeated this level, move onto next level
 							if (this.level + 1 > this.settings.levelCount) {
 								//we finished the game!
+								playSound(gameFinish);
 								this.finishing = true;
 
 								this.sea.setNewGoal(800);
@@ -120,6 +127,7 @@ class RoundManager {
 								this.breakDelay = 200;
 							}
 						} else {
+							playSound(waveBeat);
 							this.spawningIn = true;
 							this.wave++;
 							this.breakDelay = 30;
@@ -150,6 +158,34 @@ class RoundManager {
 		}
 	}
 
+	updateLevelText() {
+		if (this.breakDelay > 0 && this.wave == 1) {
+			if (this.fadeIn) {
+				if (this.levelTextOpacity < 1) {
+					this.levelTextOpacity += 0.02;
+				} else {
+					this.levelTextOpacity = 1;
+					if (this.pauseCount > 0) {
+						this.pauseCount--;
+					} else {
+						playSound(levelBeat);
+						this.pauseCount = 90;
+						this.levelTextCount++;
+						this.fadeIn = false;
+					}
+				}
+			} else {
+				if (this.levelTextOpacity > 0) {
+					this.levelTextOpacity -= 0.02;
+				} else {
+					this.levelTextOpacity = 0;
+				}
+			}
+		} else {
+			this.fadeIn = true;
+		}
+	}
+
 	finishingCare() {
 		if (this.finishing) {
 			if (this.sea.y == this.sea.goalHeight && this.toneMenu.x == this.toneMenu.goalX) {
@@ -162,6 +198,7 @@ class RoundManager {
 		this.initializationCare();
 		this.updateRound();
 		this.finishingCare();
+		this.updateLevelText();
 	}
 
 	updateContent() {
@@ -204,6 +241,16 @@ class RoundManager {
 		this.sea.update();
 	}
 
+	renderLevelText() {
+		ctx.shadowBlur = 20;
+		ctx.shadowColor = "#c9b5f7";
+		ctx.font = "150px UniSansHeavy";
+		ctx.fillStyle = hexToRgbA("#c9b5f7", this.levelTextOpacity);
+		ctx.textAlign = "center";
+		ctx.fillText(`LEVEL ${this.levelTextCount}`, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+		ctx.shadowBlur = 0;
+	}
+
 	renderContent() {
 		//render particles
 		for (var i = 0; i < this.particles.length; i++) {
@@ -230,6 +277,7 @@ class RoundManager {
 	}
 
 	render() {
+		this.renderLevelText();
 		if (this.ongoing && this.startDone)
 			this.renderContent();
 	}
