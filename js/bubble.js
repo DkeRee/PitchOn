@@ -91,10 +91,10 @@ class Bubble {
 
 	alarmSelf() {
 		this.alarming = true;
-		this.pushRippleParticle("#EE4B2B", false);
+		this.pushRippleParticle(DANGER_COLOR, false);
 
 		for (var i = 0; i < 5; i++) {
-			this.pushFadeParticle("#EE4B2B");
+			this.pushFadeParticle(DANGER_COLOR);
 		}
 	}
 
@@ -194,12 +194,12 @@ class Bubble {
 	updateIdleParticle() {
 		//update particle system
 		const touchingMouse = this.checkServerTouching();
-		const color = this.alarming ? "#EE4B2B" : this.color;
+		const color = this.alarming ? DANGER_COLOR : this.color;
 
 		if (this.alarming) {
 			if (this.alarmXCounter % 2 == 0) {
 				for (var i = 0; i < 10; i++) {
-					this.pushIdleParticle("#EE4B2B");
+					this.pushIdleParticle(DANGER_COLOR);
 				}
 			}
 		}
@@ -274,8 +274,9 @@ class Bubble {
 
 		//touched sea
 		if (this.y + this.radius >= STAGE_CACHE.sea.y) {
+			STAGE_CACHE.hurtOpacity = 0.5;
 			playSound(popBad);
-			this.killSelf("#EE4B2B");
+			this.killSelf(DANGER_COLOR);
 		}
 	}
 
@@ -294,8 +295,8 @@ class Bubble {
 		ctx.stroke();
 
 		if (this.alarming) {
-			ctx.fillStyle = hexToRgbA("#EE4B2B", this.alarmOpacity);
-			ctx.strokeStyle = hexToRgbA("#EE4B2B", this.alarmOpacity);
+			ctx.fillStyle = hexToRgbA(DANGER_COLOR, this.alarmOpacity);
+			ctx.strokeStyle = hexToRgbA(DANGER_COLOR, this.alarmOpacity);
 
 			ctx.beginPath();
 			ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);

@@ -44,6 +44,7 @@ class RoundManager {
 		this.spawnCounter = randRange(this.settings.minSpawnDelay, this.settings.maxSpawnDelay);
 		this.breakDelay = 0;
 		this.finishing = false;
+		this.hurtOpacity = 0;
 
 		//level text
 		this.levelTextCount = 1;
@@ -201,6 +202,14 @@ class RoundManager {
 		this.updateLevelText();
 	}
 
+	updateHurt() {
+		if (this.hurtOpacity > 0) {
+			this.hurtOpacity -= 0.01;
+		} else {
+			this.hurtOpacity--;
+		}
+	}
+
 	updateContent() {
 		this.touchFound = false;
 
@@ -239,6 +248,7 @@ class RoundManager {
 
 		this.toneMenu.update();
 		this.sea.update();
+		this.updateHurt();
 	}
 
 	renderLevelText() {
@@ -267,6 +277,10 @@ class RoundManager {
 
 		//render tonemenu
 		this.toneMenu.render();
+
+		//render hurt
+		ctx.fillStyle = hexToRgbA(DANGER_COLOR, this.hurtOpacity);
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
 	}
 
 	update() {

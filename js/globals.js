@@ -32,6 +32,8 @@ function updateMousePos(clientX, clientY) {
 	};
 }
 
+const DANGER_COLOR = "#EE4B2B";
+
 //AUDIO STUFFS//
 
 //MUSIC SYNTH
