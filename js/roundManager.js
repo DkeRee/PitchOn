@@ -100,7 +100,7 @@ class RoundManager {
 
 		this.healthBar.setNewGoalX(CANVAS_WIDTH + 60);
 		this.sea.setNewGoal(800);
-		this.toneMenu.setNewGoalContainer(-100);
+		this.toneMenu.setNewGoalContainer(-150);
 	}
 
 	spawnBubble() {

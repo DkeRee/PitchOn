@@ -128,7 +128,7 @@ class Bubble {
 	}
 
 	checkServerTouching() {
-		return this.id == STAGE_CACHE.touchedBubble && STAGE_CACHE.touchFound;
+		return this.id == STAGE_CACHE.touchedBubble && STAGE_CACHE.touchFound && !STAGE_CACHE.finishing;
 	}
 
 	updateVertical() {
