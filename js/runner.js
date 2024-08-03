@@ -71,12 +71,14 @@
 
 		if (create) {
 			STAGE_CACHE = new RoundManager({
-				blind: true,
+				blind: false,
 				fallingSpeed: 0.2,
 				punishOffset: 8,
 				wantOctave: false,
 				maxLives: 3,
-				toneRange: ["C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4"],
+				toneRange: ["C", "D", "E", "F", "G", "A", "B"],
+				octaveUpRange: 3,
+				octaveDownRange: 3,
 				waveCount: 3,
 				levelCount: 6,
 				minBubbles: 1,

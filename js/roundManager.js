@@ -9,6 +9,8 @@
 		wantOctave -> whether we want to add random octaves into the mix
 		maxLives -> how many max lives we will have
 		toneRange -> gives range of tones disregarding octaves
+		octaveUpRange -> gives range of number of octaves we want to go up (cap: 4)
+		octaveDownRange -> gives range of number of octaves we want to go down (cap: 3) => these two give an octave MAX range of [1, 7]
 		waveCount -> how many waves of bubbles we want to spawn per level, each wave will have more and more bubbles
 		levelCount -> how many levels we want to have
 		minBubbles -> min amount of bubbles per wave
@@ -70,7 +72,7 @@ class RoundManager {
 				for (var i = 0; i < this.settings.toneRange.length; i++) {
 					const note = this.settings.toneRange[i].substring(0, 1);
 
-					if (this.settings.toneRange[i].length == 3) {
+					if (this.settings.toneRange[i].length == 2) {
 						isChromatic = true;
 					}
 
@@ -113,16 +115,17 @@ class RoundManager {
 	spawnBubble() {
 		const note = this.settings.toneRange[randRange(0, this.settings.toneRange.length - 1)];
 		const rY = randRange(this.settings.minSpawnReach, this.settings.maxSpawnReach);
+		const offset = Math.random() > 0.5 ? (randRange(0, this.settings.octaveUpRange)) : -(randRange(0, this.settings.octaveDownRange)); 
 
-		if (note.length == 2) {
+		if (note.length == 1) {
 			//natural note
 			const rX = randRange(NATURAL_BUBBLE_RADIUS, CANVAS_WIDTH - NATURAL_BUBBLE_RADIUS);
-			this.bubbles.push(new NaturalBubble(rX, rY, note));
+			this.bubbles.push(new NaturalBubble(rX, rY, note + (4 + offset).toString()));
 		} else {
 			//is a sharp or flat
 			//will add this in later
 			const rX = randRange(ACCIDENTAL_BUBBLE_RADIUS, CANVAS_WIDTH - ACCIDENTAL_BUBBLE_RADIUS);
-			this.bubbles.push(new AccidentalBubble(rX, rY, note));
+			this.bubbles.push(new AccidentalBubble(rX, rY, note + (4 + offset).toString()));
 		}
 	}
 
