@@ -63,5 +63,5 @@ function playSound(sound) {
 }
 
 //OTHER CONSTANTS
-const NATURAL_BUBBLE_RADIUS = 60;
+const NATURAL_BUBBLE_RADIUS = 75;
 const ACCIDENTAL_BUBBLE_RADIUS = 35;

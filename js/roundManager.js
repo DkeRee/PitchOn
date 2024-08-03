@@ -3,6 +3,7 @@
 	I'm writing this here to quite literally remind myself what the round params object is going to be like in case I get lost
 
 	Param Details:
+		blind -> turns off all indicators of whether notes are a natural or not
 		fallingSpeed -> how fast the bubbles will fall, aka difficulty gouge
 		punishOffset -> how much we want to punish the player by making the bubbles fall down
 		wantOctave -> whether we want to add random octaves into the mix

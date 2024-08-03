@@ -71,6 +71,7 @@
 
 		if (create) {
 			STAGE_CACHE = new RoundManager({
+				blind: true,
 				fallingSpeed: 0.2,
 				punishOffset: 8,
 				wantOctave: false,
