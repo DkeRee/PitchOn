@@ -3,6 +3,12 @@
 	I'm writing this here to quite literally remind myself what the round params object is going to be like in case I get lost
 
 	Param Details:
+		difficultyProgression -> {
+			progress -> whether we want to progress difficulty by level or not
+			bubbleAmp -> A number that gets added to both min and max to up the average number bubbles PER LEVEL
+			fallAmp -> A number that gets added to bubble falling speed PER LEVEL
+			punishAmp -> A number that gets added to bubble punish amount PER LEVEL
+		}
 		blind -> turns off all indicators of whether notes are a natural or not
 		fallingSpeed -> how fast the bubbles will fall, aka difficulty gouge
 		punishOffset -> how much we want to punish the player by making the bubbles fall down
@@ -54,12 +60,16 @@ class RoundManager {
 		this.levelTextCount = 1;
 		this.levelTextOpacity = 0;
 		this.pauseCount = 90;
-		this.fadeIn = true;
+		this.fadeIn = true;		
 	}
 
 	initializationCare() {
 		if (!this.startDone) {
 			if (this.startCounter > 0) {
+				if (this.startCounter == 30) {
+					playSound(gameStart);
+				}
+
 				this.startCounter--;
 			} else {
 				//initialize only NOW for dramatic effects!
@@ -94,7 +104,7 @@ class RoundManager {
 
 				this.toneMenu = new ToneMenu(toneMenuRange, isChromatic);
 				this.healthBar = new HealthBar(this.settings.maxLives);
-				this.startDone = true;
+				this.startDone = true;				
 			}
 		}
 	}
@@ -149,6 +159,15 @@ class RoundManager {
 								this.spawningIn = true;
 								this.level++;
 								this.breakDelay = 200;
+
+								//difficulty progression!
+								const difc = this.settings.difficultyProgression;
+								this.settings.minBubbles += difc.bubbleAmp;
+								this.settings.maxBubbles += difc.bubbleAmp;
+								this.settings.fallingSpeed += difc.fallAmp;
+								this.settings.punishOffset += difc.punishAmp;
+
+								this.spawnBubbleMax = randRange(this.settings.minBubbles, this.settings.maxBubbles);
 							}
 						} else {
 							playSound(waveBeat);
@@ -171,7 +190,6 @@ class RoundManager {
 						} else {
 							//reset for next spawn!
 							this.spawnBubbleCount = 0;
-							this.spawnBubbleMax = randRange(this.settings.minBubbles, this.settings.maxBubbles);
 							this.spawningIn = false;
 						}
 					}

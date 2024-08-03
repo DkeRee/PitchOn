@@ -71,18 +71,23 @@
 
 		if (create) {
 			STAGE_CACHE = new RoundManager({
+				difficultyProgression: {
+					bubbleAmp: 0,
+					fallAmp: 0,
+					punishAmp: 0
+				},
 				blind: false,
 				fallingSpeed: 0.2,
 				punishOffset: 8,
 				wantOctave: false,
 				maxLives: 3,
 				toneRange: ["C", "D", "E", "F", "G", "A", "B"],
-				octaveUpRange: 3,
-				octaveDownRange: 3,
-				waveCount: 3,
-				levelCount: 6,
+				octaveUpRange: 0,
+				octaveDownRange: 0,
+				waveCount: 1,
+				levelCount: 3,
 				minBubbles: 1,
-				maxBubbles: 3,
+				maxBubbles: 1,
 				minSpawnDelay: 4,
 				maxSpawnDelay: 40,
 				minSpawnReach: 100,

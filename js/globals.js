@@ -52,6 +52,7 @@ const waveBeat = new Audio("soundFx/waveBeat.wav");
 const gameFinish = new Audio("soundFx/gameFinish.wav");
 const gameFail = new Audio("soundFx/gameFail.wav");
 const switchAccidental = new Audio("soundFx/switchAccidental.wav");
+const gameStart = new Audio("soundFx/gameStart.wav");
 
 //slight tweaks
 wobbleIn.volume = 0.6;
