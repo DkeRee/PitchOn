@@ -30,19 +30,21 @@ class HealthBar {
 	}
 
 	registerHurt() {
-		const dec = this.height / this.maxLives;
-		this.life--;
+		if (this.life > 0) {
+			const dec = this.height / this.maxLives;
+			this.life--;
 
-		this.goalHeight = this.contentHeight - dec;
-		this.goalY = this.contentY + dec;
+			this.goalHeight = this.contentHeight - dec;
+			this.goalY = this.contentY + dec;
 
-		const distHeight = this.goalHeight - this.contentHeight;
-		this.heightVel = distHeight / 5;
-		this.heightAcc = (Math.abs(distHeight) / 45) * -Math.sign(this.heightVel);
+			const distHeight = this.goalHeight - this.contentHeight;
+			this.heightVel = distHeight / 5;
+			this.heightAcc = (Math.abs(distHeight) / 45) * -Math.sign(this.heightVel);
 
-		const distY = this.goalY - this.contentY;
-		this.yVel = distY / 5;
-		this.yAcc = (Math.abs(distY) / 45) * -Math.sign(this.yVel);
+			const distY = this.goalY - this.contentY;
+			this.yVel = distY / 5;
+			this.yAcc = (Math.abs(distY) / 45) * -Math.sign(this.yVel);
+		}
 	}
 
 	setNewGoalX(newGoal) {
@@ -63,7 +65,7 @@ class HealthBar {
 				this.contentY = this.goalY;
 
 				//then, we wait until we finish decrementing the healthbar to declare death, not instantly
-				if (this.life == 0) {
+				if (this.life <= 0) {
 					playSound(gameFail);
 					STAGE_CACHE.endRound();
 				}

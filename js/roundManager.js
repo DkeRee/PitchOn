@@ -114,12 +114,14 @@ class RoundManager {
 		} else {
 			//is a sharp or flat
 			//will add this in later
+			const rX = randRange(ACCIDENTAL_BUBBLE_RADIUS, CANVAS_WIDTH - ACCIDENTAL_BUBBLE_RADIUS);
+			this.bubbles.push(new AccidentalBubble(rX, rY, note));
 		}
 	}
 
 	updateRound() {
 		if (this.startDone && !this.finishing && this.healthBar.life > 0) {
-			if (this.breakDelay == 0) {
+			if (this.breakDelay <= 0) {
 				if (!this.spawningIn) {
 					//check for whether wave is over
 					//if wave is over, check for whether level is over

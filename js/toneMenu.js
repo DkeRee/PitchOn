@@ -1,6 +1,13 @@
 const Z = 0;
 const X = 1;
 
+const RIGHT_ARROW = 0;
+const LEFT_ARROW = 1;
+
+const NATURAL = 0;
+const SHARP = 1;
+const FLAT = 2;
+
 class ToneMenu {
 	constructor(toneList) {
 		this.toneIndex = 0;
@@ -16,6 +23,15 @@ class ToneMenu {
 		this.height = this.width * this.toneList.length;
 		this.x = -100;
 		this.y = (CANVAS_HEIGHT / 2) - (this.width / 2) * this.toneList.length;
+
+		//accidental container
+		this.accidental = NATURAL;
+		this.accidentalHeld = false;
+		this.accidentalLastHeld = -1;
+		this.accidentalWidth = this.width;
+		this.accidentalHeight = this.accidentalWidth;
+		this.accidentalX = this.x;
+		this.accidentalY = this.y - this.accidentalHeight * 2;
 
 		//lerped container
 		this.goalX = -40;
@@ -99,6 +115,40 @@ class ToneMenu {
 		}
 	}
 
+	updateAccidentalBind() {
+		if (!this.accidentalHeld) {
+			if (KEYBINDS[39]) {
+				//RIGHT ARROW
+				if (this.accidental + 1 < 3) {
+					this.accidental++;
+				} else {
+					this.accidental = NATURAL;
+				}
+
+				this.accidentalHeld = true;
+				this.accidentalLastHeld = RIGHT_ARROW;
+				playSound(switchAccidental);
+			} else if (KEYBINDS[37]) {
+				//LEFT ARROW
+				if (this.accidental - 1 > -1) {
+					this.accidental--;
+				} else {
+					this.accidental = FLAT;
+				}
+
+				this.accidentalHeld = true;
+				this.accidentalLastHeld = LEFT_ARROW;
+				playSound(switchAccidental);
+			}
+		} else {
+			if (!KEYBINDS[39] && this.accidentalLastHeld == RIGHT_ARROW) {
+				this.accidentalHeld = false;
+			} else if (!KEYBINDS[37] && this.accidentalLastHeld == LEFT_ARROW) {
+				this.accidentalHeld = false;
+			}
+		}
+	}
+
 	updateCursor() {
 		if (this.goalY !== this.cY) {
 			//move to new spot
@@ -114,16 +164,52 @@ class ToneMenu {
 
 	update() {
 		this.updateSelectorBind();
+		this.updateAccidentalBind();
 		this.updateCursor();
 		this.updateContainerLerp();
+		this.accidentalX = this.x;
 	}
 
 	render() {
-		ctx.fillStyle = hexToRgbA(this.color, 0.5);
-		ctx.strokeStyle = hexToRgbA(this.color, 0.9);
-		ctx.lineWidth = 4;
+		switch (this.accidental) {
+			case NATURAL:
+				this.colorC = "#f5c690";
+				break;
+			case SHARP:
+				this.colorC = "#aaf55f";
+				break;
+			case FLAT:
+				this.colorC = "#f59953";
+				break;
+		}
 
 		var fontSize = 1 / this.toneList.length * 220;
+		ctx.fillStyle = hexToRgbA(this.colorC, 0.5);
+
+		//render accidental container
+		ctx.lineWidth = this.accidentalWidth / 18;
+		ctx.strokeStyle = this.colorC;
+		ctx.fillRect(this.accidentalX, this.accidentalY, this.accidentalWidth, this.accidentalHeight);
+		ctx.strokeRect(this.accidentalX, this.accidentalY, this.accidentalWidth, this.accidentalHeight);
+
+		ctx.fillStyle = "white";
+		ctx.textAlign = "center";
+		ctx.font = `${fontSize}px UniSansHeavy`;
+		switch (this.accidental) {
+			case NATURAL:
+				ctx.fillText("N", this.accidentalX + this.accidentalWidth / 2, this.accidentalY + this.accidentalHeight / 2 + fontSize / 2.8);
+				break;
+			case SHARP:
+				ctx.fillText("S", this.accidentalX + this.accidentalWidth / 2, this.accidentalY + this.accidentalHeight / 2 + fontSize / 2.8);
+				break;
+			case FLAT:
+				ctx.fillText("F", this.accidentalX + this.accidentalWidth / 2, this.accidentalY + this.accidentalHeight / 2 + fontSize / 2.8);
+				break;
+		}
+
+		//rendertone menu
+		ctx.strokeStyle = hexToRgbA(this.color, 0.9);
+		ctx.lineWidth = 4;
 
 		for (var i = 0; i < this.toneList.length; i++) {
 			ctx.fillStyle = hexToRgbA(this.color, 0.5);

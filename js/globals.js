@@ -51,6 +51,11 @@ const levelBeat = new Audio("soundFx/levelBeat.wav");
 const waveBeat = new Audio("soundFx/waveBeat.wav");
 const gameFinish = new Audio("soundFx/gameFinish.wav");
 const gameFail = new Audio("soundFx/gameFail.wav");
+const switchAccidental = new Audio("soundFx/switchAccidental.wav");
+
+//slight tweaks
+wobbleIn.volume = 0.6;
+switchAccidental.volume = 0.5;
 
 function playSound(sound) {
 	sound.currentTime = 0;
@@ -59,3 +64,4 @@ function playSound(sound) {
 
 //OTHER CONSTANTS
 const NATURAL_BUBBLE_RADIUS = 60;
+const ACCIDENTAL_BUBBLE_RADIUS = 30;
