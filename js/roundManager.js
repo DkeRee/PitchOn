@@ -4,6 +4,7 @@
 
 	Param Details:
 		fallingSpeed -> how fast the bubbles will fall, aka difficulty gouge
+		punishOffset -> how much we want to punish the player by making the bubbles fall down
 		wantOctave -> whether we want to add random octaves into the mix
 		maxLives -> how many max lives we will have
 		toneRange -> gives range of tones disregarding octaves
@@ -63,9 +64,14 @@ class RoundManager {
 
 				//set up tone menu...
 				const toneMenuRange = [];
+				var isChromatic = false;
 
 				for (var i = 0; i < this.settings.toneRange.length; i++) {
 					const note = this.settings.toneRange[i].substring(0, 1);
+
+					if (this.settings.toneRange[i].length == 3) {
+						isChromatic = true;
+					}
 
 					//double check to see if there's a sharp or flat duplicate, or if there already is a sharp or flat then natural duplicate
 					//either way, we are going to use holding shift to determine sharp/flat fluctuation when clicking on the bubbles, so it doesn't matter which comes first
@@ -83,7 +89,7 @@ class RoundManager {
 					toneMenuRange.push(note);
 				}
 
-				this.toneMenu = new ToneMenu(toneMenuRange);
+				this.toneMenu = new ToneMenu(toneMenuRange, isChromatic);
 				this.healthBar = new HealthBar(this.settings.maxLives);
 				this.startDone = true;
 			}

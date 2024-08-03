@@ -14,7 +14,7 @@ class Bubble {
 
 		//alarm
 		this.alarming = false;
-		this.alarmDecY = 10;
+		this.alarmDecY = STAGE_CACHE.settings.punishOffset;
 		this.alarmRateX = -3;
 		this.alarmAccX = -4;
 		this.alarmXCounter = 0;
@@ -138,7 +138,7 @@ class Bubble {
 			this.alarmOpacity -= 0.05;
 
 			if (this.alarmDecY <= this.yDec) {
-				this.alarmDecY = 10;
+				this.alarmDecY = STAGE_CACHE.settings.punishOffset;
 				this.alarmRateX = -3;
 				this.alarmAccX = -4;
 				this.alarmXCounter = 0;

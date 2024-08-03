@@ -71,14 +71,15 @@
 
 		if (create) {
 			STAGE_CACHE = new RoundManager({
-				fallingSpeed: 0.5,
+				fallingSpeed: 0.2,
+				punishOffset: 8,
 				wantOctave: false,
 				maxLives: 3,
-				toneRange: ["C4", "D4", "E4"],
+				toneRange: ["C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4"],
 				waveCount: 3,
 				levelCount: 6,
-				minBubbles: 15,
-				maxBubbles: 20,
+				minBubbles: 1,
+				maxBubbles: 3,
 				minSpawnDelay: 4,
 				maxSpawnDelay: 40,
 				minSpawnReach: 100,
