@@ -102,6 +102,42 @@ class RoundManager {
 					toneMenuRange.push(note);
 				}
 
+				//make sure to add surrounding notes for accidentals, loop again after the basics are set up
+				//this assumes that the order the settings toneRange is set up includes notes C-B in an orderly fashion
+				for (var i = 0; i < this.settings.toneRange.length; i++) {
+					const fullNote = this.settings.toneRange[i];
+
+					if (fullNote.length == 2) {
+						///is chromatic
+						for (var j = 0; j < toneMenuRange.length; j++) {
+							//found matching note, now give equivalent note
+							if (toneMenuRange[j] == fullNote.substring(0, 1)) {
+								const note = fullNote.substring(0, 1);
+								const accidental = fullNote.substring(1, 2);
+								const index = INDEX_TOOL.indexOf(note);
+
+								//find accidental of note
+								//if it simply doesn't exist, or it doesn't match (Reminder: I am not checking for whether it could exist in a different spot, I assume it is SORTED)
+								if (accidental == "#") {
+									//is sharp
+									if (j + 1 == toneMenuRange.length || (j + 1 < toneMenuRange.length && toneMenuRange[j + 1].substring(0, 1) !== INDEX_TOOL.charAt(index + 1))) {
+										//matching twin doesnt exist
+										toneMenuRange.splice(j + 1, 0, INDEX_TOOL.charAt(index + 1));
+										j++;
+									}
+								} else if (accidental == "b") {
+									//is flat
+									if (j - 1 == -1 || (j - 1 > -1 && toneMenuRange[j - 1].substring(0, 1) !== INDEX_TOOL.charAt(index - 1))) {
+										//matching twin doesnt exist
+										toneMenuRange.splice(j, 0, INDEX_TOOL.charAt(index - 1));
+										j++;
+									}
+								}
+							}
+						}
+					}
+				}
+
 				this.toneMenu = new ToneMenu(toneMenuRange, isChromatic);
 				this.healthBar = new HealthBar(this.settings.maxLives);
 				this.startDone = true;				

@@ -20,7 +20,7 @@ class ToneMenu {
 
 		//create container
 		this.color = "#ccbaf7";
-		this.width = 100 - this.toneList.length * 8;
+		this.width = 44; //100 - this.toneList.length * 8, removed ability to scale due to unreliability, plus not really needed
 		this.height = this.width * this.toneList.length;
 		this.x = -100;
 		this.y = (CANVAS_HEIGHT / 2) - (this.width / 2) * this.toneList.length;
@@ -174,7 +174,7 @@ class ToneMenu {
 	}
 
 	render() {
-		var fontSize = 1 / this.toneList.length * 220;
+		var fontSize = 31.428571428571427; //1 / this.toneList.length * 220;, again removed ability to customize for same reasons
 
 		if (this.isChromatic) {
 			switch (this.accidental) {
