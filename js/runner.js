@@ -81,6 +81,11 @@
 	window.addEventListener("keydown", e => {
 		KEYBINDS[e.keyCode || e.which] = true;
 
+		//avoid space bar from scrolling down
+		if (e.keyCode == 32) {
+			e.preventDefault();
+		}
+
 		var create = false;
 
 		//temp
@@ -123,5 +128,10 @@
 
 	window.addEventListener("keyup", e => {
 		delete KEYBINDS[e.keyCode || e.which];
+
+		//avoid space bar from scrolling down
+		if (e.keyCode == 32) {
+			e.preventDefault();
+		}
 	});
 })();
