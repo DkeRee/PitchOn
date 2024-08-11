@@ -21,8 +21,30 @@
 	requestAnimationFrame(globalStep);
 
 	function globalUpdate() {
+		//Stage switcher
+		/*
+		if (!STAGE_CACHE || (STAGE_CACHE && !STAGE_CACHE.ongoing)) {
+			switch (NEXT_STAGE) {
+				case OPENING:
+					STAGE_CACHE; //new TitleScreen();//set opening
+					break;
+				case MENU:
+					STAGE_CACHE;//set menu
+					break;
+				case EDITOR:
+					STAGE_CACHE;//editor
+					break;
+				case GAME:
+					STAGE_CACHE;//round manager
+					break;
+			}
+		}
+		*/
+
 		if (STAGE_CACHE)
 			STAGE_CACHE.update();
+
+		MOUSE.update();
 	}
 
 	function globalRender() {
@@ -39,19 +61,21 @@
 
 		if (STAGE_CACHE)
 			STAGE_CACHE.render();
+
+		MOUSE.render();
 	}
 
 	canvas.addEventListener("mousedown", e => {
-		updateMousePos(e.clientX, e.clientY);
-		holding = true;
+		MOUSE.updateMouseGoal(e.clientX, e.clientY);
+		MOUSE.holding = true;
 	});
 
 	canvas.addEventListener("mouseup", () => {
-		holding = false;
+		MOUSE.holding = false;
 	});
 
 	canvas.addEventListener("mousemove", e => {
-		updateMousePos(e.clientX, e.clientY);
+		MOUSE.updateMouseGoal(e.clientX, e.clientY);
 	});
 
 	window.addEventListener("keydown", e => {
@@ -94,6 +118,7 @@
 				maxSpawnReach: 300
 			});
 		}
+
 	});
 
 	window.addEventListener("keyup", e => {

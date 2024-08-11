@@ -17,20 +17,7 @@ canvas.height = CANVAS_HEIGHT;
 //CURRENT STAGE
 var STAGE_CACHE;
 
-var holding = false;
 const KEYBINDS = {};
-var MOUSE_POS = {
-	x: 0,
-	y: 0
-}
-
-function updateMousePos(clientX, clientY) {
-	const rect = canvas.getBoundingClientRect();
-	MOUSE_POS = {
-		x: clientX - rect.left,
-		y: clientY - rect.top
-	};
-}
 
 const DANGER_COLOR = "#EE4B2B";
 
@@ -66,3 +53,9 @@ function playSound(sound) {
 //OTHER CONSTANTS
 const NATURAL_BUBBLE_RADIUS = 75;
 const ACCIDENTAL_BUBBLE_RADIUS = 35;
+const OPENING = 0;
+const MENU = 1;
+const EDITOR = 2;
+const GAME = 3;
+const NEXT_STAGE = OPENING;
+var ROUND_PRESET = {};

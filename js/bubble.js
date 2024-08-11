@@ -124,7 +124,7 @@ class Bubble {
 	}
 
 	isTouching() {
- 		return this.isColliding(Object.assign({radius: 1}, MOUSE_POS));
+ 		return this.isColliding(MOUSE);
 	}
 
 	checkServerTouching() {

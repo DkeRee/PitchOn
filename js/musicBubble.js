@@ -91,7 +91,7 @@ class MusicBubble extends Bubble {
 	}
 
 	updatePop() {
-		if (this.checkServerTouching() && holding && !this.alarming) {
+		if (this.checkServerTouching() && MOUSE.holding && !this.alarming) {
 			//check for whether you have the right sound selected
 			//use substring to disregard octaves
 			if (this.checkMatching()) {
@@ -103,7 +103,7 @@ class MusicBubble extends Bubble {
 			}
 
 
-			holding = false;
+			MOUSE.holding = false;
 		}
 	}
 

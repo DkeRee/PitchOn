@@ -130,6 +130,8 @@ class ToneMenu {
 					this.accidentalHeld = true;
 					this.accidentalLastHeld = RIGHT_ARROW;
 					playSound(switchAccidental);
+
+					MOUSE.switchColor(this.accidental + 1);
 				} else if (KEYBINDS[37]) {
 					//LEFT ARROW
 					if (this.accidental - 1 > -1) {
@@ -141,6 +143,8 @@ class ToneMenu {
 					this.accidentalHeld = true;
 					this.accidentalLastHeld = LEFT_ARROW;
 					playSound(switchAccidental);
+
+					MOUSE.switchColor(this.accidental + 1);
 				}
 			} else {
 				if (!KEYBINDS[39] && this.accidentalLastHeld == RIGHT_ARROW) {

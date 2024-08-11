@@ -60,7 +60,9 @@ class RoundManager {
 		this.levelTextCount = 1;
 		this.levelTextOpacity = 0;
 		this.pauseCount = 90;
-		this.fadeIn = true;		
+		this.fadeIn = true;	
+
+		MOUSE.switchColor(N_C);
 	}
 
 	initializationCare() {
@@ -268,6 +270,7 @@ class RoundManager {
 		if (this.finishing) {
 			if (this.sea.y == this.sea.goalHeight && this.toneMenu.x == this.toneMenu.goalX) {
 				this.ongoing = false;
+				MOUSE.switchColor(R_C);
 			}
 		}
 	}
