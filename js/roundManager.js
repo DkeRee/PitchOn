@@ -61,6 +61,9 @@ class RoundManager {
 		this.pauseCount = 90;
 		this.fadeIn = true;	
 
+		//particles
+		this.pTick = 2;
+
 		MOUSE.switchColor(N_C);
 	}
 
@@ -290,6 +293,15 @@ class RoundManager {
 		}
 	}
 
+	particleUpdate() {
+		if (this.pTick > 0) {
+			this.pTick--;
+		} else {
+			this.pTick = 2;
+			PARTICLES.push(new BottomParticle());
+		}
+	}
+
 	updateContent() {
 		this.touchFound = false;
 
@@ -319,6 +331,8 @@ class RoundManager {
 		this.toneMenu.update();
 		this.sea.update();
 		this.updateHurt();
+
+		this.particleUpdate();
 	}
 
 	renderLevelText() {
