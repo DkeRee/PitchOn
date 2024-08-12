@@ -269,6 +269,7 @@ class RoundManager {
 		if (this.finishing) {
 			if (this.sea.y == this.sea.goalHeight && this.toneMenu.x == this.toneMenu.goalX) {
 				this.ongoing = false;
+				NEXT_STAGE = OPENING;
 				MOUSE.switchColor(R_C);
 			}
 		}

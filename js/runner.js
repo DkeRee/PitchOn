@@ -22,11 +22,10 @@
 
 	function globalUpdate() {
 		//Stage switcher
-		/*
 		if (!STAGE_CACHE || (STAGE_CACHE && !STAGE_CACHE.ongoing)) {
 			switch (NEXT_STAGE) {
 				case OPENING:
-					STAGE_CACHE; //new TitleScreen();//set opening
+					STAGE_CACHE = new TitleScreen(); //set opening
 					break;
 				case MENU:
 					STAGE_CACHE;//set menu
@@ -35,11 +34,10 @@
 					STAGE_CACHE;//editor
 					break;
 				case GAME:
-					STAGE_CACHE;//round manager
+					STAGE_CACHE = new RoundManager(ROUND_PRESET); //set new round
 					break;
 			}
 		}
-		*/
 
 		for (var i = 0; i < PARTICLES.length; i++) {
 			const particle = PARTICLES[i];
@@ -84,6 +82,7 @@
 	canvas.addEventListener("mousedown", e => {
 		MOUSE.updateMouseGoal(e.clientX, e.clientY);
 		MOUSE.holding = true;
+		INTERACTED = true;
 	});
 
 	canvas.addEventListener("mouseup", () => {
@@ -96,50 +95,12 @@
 
 	window.addEventListener("keydown", e => {
 		KEYBINDS[e.keyCode || e.which] = true;
+		INTERACTED = true;
 
 		//avoid space bar from scrolling down
 		if (e.keyCode == 32) {
 			e.preventDefault();
 		}
-
-		var create = false;
-
-		//temp
-		if (KEYBINDS[82]) {
-			if (!STAGE_CACHE) {
-				create = true;
-			} else {
-				if (!STAGE_CACHE.ongoing)
-					create = true;
-			}
-		}
-
-		if (create) {
-			STAGE_CACHE = new RoundManager({
-				difficultyProgression: {
-					bubbleAmp: 0,
-					fallAmp: 0,
-					punishAmp: 0
-				},
-				blind: false,
-				fallingSpeed: 0.2,
-				punishOffset: 11,
-				wantOctave: false,
-				maxLives: 3,
-				toneRange: ["C", "Gb", "A#", "B"],
-				octaveUpRange: 0,
-				octaveDownRange: 0,
-				waveCount: 2,
-				levelCount: 3,
-				minBubbles: 1,
-				maxBubbles: 1,
-				minSpawnDelay: 4,
-				maxSpawnDelay: 40,
-				minSpawnReach: 100,
-				maxSpawnReach: 300
-			});
-		}
-
 	});
 
 	window.addEventListener("keyup", e => {

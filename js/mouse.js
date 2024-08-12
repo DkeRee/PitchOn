@@ -10,10 +10,8 @@ class Mouse {
 		this.goalX = this.x;
 		this.goalY = this.y;
 		this.holding = false;
-		this.normalRadius = 25;
-		this.highlightedRadius = 40;
-		this.radius = this.normalRadius;
-		this.color = "#d9c4f2";
+		this.radius = 25;
+		this.color = "#edadf0";
 
 		this.touching = false;
 		this.particleCounter = 5;
@@ -32,7 +30,7 @@ class Mouse {
 	switchColor(type) {
 		switch (type) {
 			case R_C:
-				this.color = "#d9c4f2";
+				this.color = "#edadf0";
 				break;
 			case N_C:
 				this.color = "#f5d88e";
@@ -85,6 +83,14 @@ class Mouse {
 					}
 				}
 			}
+
+			//title play button
+			if (STAGE_CACHE.toCircleCollision) {
+				if (STAGE_CACHE.toCircleCollision(this)) {
+					this.touching = true;
+					return;
+				}
+			}
 		}
 
 		this.touching = false;
@@ -93,9 +99,9 @@ class Mouse {
 	updateRot() {
 		var speed;
 		if (this.touching || this.holding) {
-			speed = 6;
+			speed = 10;
 		} else {
-			speed = 3;
+			speed = 2;
 		}
 
 		this.angle += degToRad(speed);
@@ -122,12 +128,12 @@ class Mouse {
 
 		//center dot
 		ctx.beginPath();
-		ctx.arc(this.x, this.y, this.normalRadius / 6, 0, 2 * Math.PI, false);
+		ctx.arc(this.x, this.y, this.radius / 6, 0, 2 * Math.PI, false);
 		ctx.fill();
 
 		//outer circle
 		ctx.beginPath();
-		ctx.arc(this.x, this.y, this.normalRadius, 0, 2 * Math.PI, false);
+		ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
 		ctx.stroke();
 
 		//rotating spike engravings

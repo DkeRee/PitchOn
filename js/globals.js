@@ -41,6 +41,9 @@ const gameFinish = new Audio("soundFx/gameFinish.wav");
 const gameFail = new Audio("soundFx/gameFail.wav");
 const switchAccidental = new Audio("soundFx/switchAccidental.wav");
 const gameStart = new Audio("soundFx/gameStart.wav");
+const enter = new Audio("soundFx/enter.wav");
+const whoosh = new Audio("soundFx/whoosh.wav");
+const whooshSmall = new Audio("soundFx/whooshSmall.wav");
 
 //slight tweaks
 wobbleIn.volume = 0.6;
@@ -52,11 +55,34 @@ function playSound(sound) {
 }
 
 //OTHER CONSTANTS
+var INTERACTED = false;
 const NATURAL_BUBBLE_RADIUS = 75;
 const ACCIDENTAL_BUBBLE_RADIUS = 35;
 const OPENING = 0;
 const MENU = 1;
 const EDITOR = 2;
 const GAME = 3;
-const NEXT_STAGE = OPENING;
-var ROUND_PRESET = {};
+var NEXT_STAGE = OPENING;
+var ROUND_PRESET = {
+				difficultyProgression: {
+					bubbleAmp: 0,
+					fallAmp: 0,
+					punishAmp: 0
+				},
+				blind: false,
+				fallingSpeed: 0.8,
+				punishOffset: 11,
+				wantOctave: false,
+				maxLives: 3,
+				toneRange: ["C", "D", "E", "F", "G", "A", "B"],
+				octaveUpRange: 0,
+				octaveDownRange: 0,
+				waveCount: 2,
+				levelCount: 3,
+				minBubbles: 5,
+				maxBubbles: 10,
+				minSpawnDelay: 4,
+				maxSpawnDelay: 40,
+				minSpawnReach: 100,
+				maxSpawnReach: 300
+			};
