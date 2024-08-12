@@ -37,7 +37,6 @@ class RoundManager {
 		this.ongoing = true;
 		this.wave = 1;
 		this.level = 1;
-		this.particles = [];
 		this.touchedBubble = 0;
 		this.touchFound = false;
 		this.bubbles = [];
@@ -293,17 +292,6 @@ class RoundManager {
 	updateContent() {
 		this.touchFound = false;
 
-		for (var i = 0; i < this.particles.length; i++) {
-			const particle = this.particles[i];
-
-			if (particle.delete) {
-				this.particles.splice(i, 1);
-				continue;
-			}
-
-			particle.update();
-		}
-
 		for (var i = 0; i < this.bubbles.length; i++) {
 			const bubble = this.bubbles[i];
 
@@ -343,11 +331,6 @@ class RoundManager {
 	}
 
 	renderContent() {
-		//render particles
-		for (var i = 0; i < this.particles.length; i++) {
-			this.particles[i].render();
-		}
-
 		//render bubbles
 		for (var i = 0; i < this.bubbles.length; i++) {
 			this.bubbles[i].render();

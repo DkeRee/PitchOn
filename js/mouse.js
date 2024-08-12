@@ -68,7 +68,7 @@ class Mouse {
 			}
 
 			for (var i = 0; i < count; i++) {
-				STAGE_CACHE.particles.push(new MouseParticle(this.x, this.y, this.color));
+				PARTICLES.push(new MouseParticle(this.x, this.y, this.color));
 			}
 		}
 	}

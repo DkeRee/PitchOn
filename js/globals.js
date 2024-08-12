@@ -16,6 +16,7 @@ canvas.height = CANVAS_HEIGHT;
 
 //CURRENT STAGE
 var STAGE_CACHE;
+const PARTICLES = [];
 
 const KEYBINDS = {};
 

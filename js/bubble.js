@@ -78,15 +78,15 @@ class Bubble {
 	}
 
 	pushIdleParticle(color) {
-		STAGE_CACHE.particles.push(new BubbleParticle(this.x, this.y, this.radius, color));
+		PARTICLES.push(new BubbleParticle(this.x, this.y, this.radius, color));
 	}
 
 	pushRippleParticle(color, full) {
-		STAGE_CACHE.particles.push(new RippleParticle(this.x, this.y, this.radius, color, full));
+		PARTICLES.push(new RippleParticle(this.x, this.y, this.radius, color, full));
 	}
 
 	pushFadeParticle(color) {
-		STAGE_CACHE.particles.push(new BubbleFade(this.x, this.y, color));
+		PARTICLES.push(new BubbleFade(this.x, this.y, color));
 	}
 
 	alarmSelf() {

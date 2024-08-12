@@ -41,6 +41,17 @@
 		}
 		*/
 
+		for (var i = 0; i < PARTICLES.length; i++) {
+			const particle = PARTICLES[i];
+
+			if (particle.delete) {
+				PARTICLES.splice(i, 1);
+				continue;
+			}
+
+			particle.update();
+		}
+
 		if (STAGE_CACHE)
 			STAGE_CACHE.update();
 
@@ -58,6 +69,11 @@
 		//RENDER BACKGROUND//
 		ctx.fillStyle = grd;
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		//render particles
+		for (var i = 0; i < PARTICLES.length; i++) {
+			PARTICLES[i].render();
+		}
 
 		if (STAGE_CACHE)
 			STAGE_CACHE.render();
