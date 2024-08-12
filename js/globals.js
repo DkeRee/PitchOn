@@ -70,7 +70,7 @@ var ROUND_PRESET = {
 					punishAmp: 0
 				},
 				blind: false,
-				fallingSpeed: 0.8,
+				fallingSpeed: 0.6,
 				punishOffset: 11,
 				wantOctave: false,
 				maxLives: 3,
@@ -83,6 +83,6 @@ var ROUND_PRESET = {
 				maxBubbles: 10,
 				minSpawnDelay: 4,
 				maxSpawnDelay: 40,
-				minSpawnReach: 100,
-				maxSpawnReach: 300
+				minSpawnReach: 50,
+				maxSpawnReach: 150
 			};
