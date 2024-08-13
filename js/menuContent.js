@@ -1,5 +1,5 @@
 class MenuContent {
-	constructor() {
+	constructor(roundContents) {
 		this.x = 50;
 		this.y = 130;
 		this.width = 1100;
@@ -11,8 +11,8 @@ class MenuContent {
 
 		var spawnX = this.x;
 		var spawnY = this.y;
-		for (var i = 0; i < 6; i++) {
-			const boxWidget = new RoundWidget(spawnX, spawnY);
+		for (var i = 0; i < roundContents.length; i++) {
+			const boxWidget = new RoundWidget(spawnX, spawnY, roundContents[i]);
 			this.rounds.push(boxWidget);
 			spawnX += ROUND_WIDGET_WIDTH;
 

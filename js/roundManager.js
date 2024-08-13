@@ -3,6 +3,7 @@
 	I'm writing this here to quite literally remind myself what the round params object is going to be like in case I get lost
 
 	Param Details:
+		title -> just a title lol
 		difficultyProgression -> {
 			progress -> whether we want to progress difficulty by level or not
 			bubbleAmp -> A number that gets added to both min and max to up the average number bubbles PER LEVEL
@@ -272,7 +273,7 @@ class RoundManager {
 		if (this.finishing) {
 			if (this.sea.y == this.sea.goalHeight && this.toneMenu.x == this.toneMenu.goalX) {
 				this.ongoing = false;
-				NEXT_STAGE = OPENING;
+				NEXT_STAGE = MENU;
 				MOUSE.switchColor(R_C);
 			}
 		}

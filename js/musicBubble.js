@@ -1,5 +1,3 @@
-const INDEX_TOOL = "CDEFGAB";
-
 class MusicBubble extends Bubble {
 	constructor(x, y, radius, color, note) {
 		super(x, y, radius, color);

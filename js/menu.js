@@ -10,7 +10,11 @@ class Menu {
 		this.touchingBack = false;
 
 		//1100, 220 total, 200 for padding
-		this.content = new MenuContent();
+		this.content = new MenuContent([
+			BEGINNER
+		]);
+
+		this.pTick = 5;
 	}
 
 	updateStarting() {
@@ -50,11 +54,23 @@ class Menu {
 		}
 	}
 
+	updateParticles() {
+		if (this.pTick > 0) {
+			this.pTick--;
+		} else {
+			this.pTick = 5;
+			PARTICLES.push(new TopParticle());
+		}
+	}
+
 	update() {
 		this.updateStarting();
 		this.updateFinishing();
 		this.frontWidgetUpdate();
-		this.content.update();
+		this.updateParticles();
+
+		if (!this.finishing)
+			this.content.update();
 	}
 
 	render() {
