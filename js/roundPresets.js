@@ -81,7 +81,7 @@ const FULL_NATURAL = {
 		punishAmp: 0
 	},
 	blind: false,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 11,
 	wantOctave: false,
 	maxLives: 3,
@@ -90,8 +90,8 @@ const FULL_NATURAL = {
 	octaveDownRange: 0,
 	waveCount: 3,
 	levelCount: 5,
-	minBubbles: 7,
-	maxBubbles: 10,
+	minBubbles: 4,
+	maxBubbles: 7,
 	minSpawnDelay: 4,
 	maxSpawnDelay: 40,
 	minSpawnReach: 50,
@@ -156,7 +156,7 @@ const FULL_ACCIDENTAL_1 = {
 		punishAmp: 0
 	},
 	blind: false,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 8,
 	wantOctave: false,
 	maxLives: 5,
@@ -181,7 +181,7 @@ const FULL_ACCIDENTAL_2 = {
 		punishAmp: 0
 	},
 	blind: false,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 11,
 	wantOctave: false,
 	maxLives: 3,
@@ -206,7 +206,7 @@ const FULL_CHROMATIC = {
 		punishAmp: 0
 	},
 	blind: false,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 11,
 	wantOctave: false,
 	maxLives: 3,
@@ -231,7 +231,7 @@ const OCTAVE_FULL_NAT = {
 		punishAmp: 0
 	},
 	blind: false,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 11,
 	wantOctave: false,
 	maxLives: 3,
@@ -256,7 +256,7 @@ const OCTAVE_FULL_ACC = {
 		punishAmp: 0
 	},
 	blind: false,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 11,
 	wantOctave: false,
 	maxLives: 3,
@@ -281,7 +281,7 @@ const OCTAVE_FULL_CHROMATIC = {
 		punishAmp: 0
 	},
 	blind: false,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 11,
 	wantOctave: false,
 	maxLives: 3,
@@ -306,7 +306,7 @@ const CHROMATIC_BLIND_1 = {
 		punishAmp: 0
 	},
 	blind: true,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 11,
 	wantOctave: false,
 	maxLives: 3,
@@ -331,7 +331,7 @@ const CHROMATIC_BLIND_2 = {
 		punishAmp: 0
 	},
 	blind: true,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 11,
 	wantOctave: false,
 	maxLives: 3,
@@ -356,7 +356,7 @@ const FULL_CHROMATIC_BLIND = {
 		punishAmp: 0
 	},
 	blind: true,
-	fallingSpeed: 0.8,
+	fallingSpeed: 0.65,
 	punishOffset: 11,
 	wantOctave: false,
 	maxLives: 3,
