@@ -54,6 +54,7 @@ class Menu {
 		this.updateStarting();
 		this.updateFinishing();
 		this.frontWidgetUpdate();
+		this.content.update();
 	}
 
 	render() {

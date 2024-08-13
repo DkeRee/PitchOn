@@ -7,6 +7,8 @@ class MenuContent {
 
 		this.rounds = [];
 
+		this.newSelectedID = -1;
+
 		var spawnX = this.x;
 		var spawnY = this.y;
 		for (var i = 0; i < 6; i++) {
@@ -18,6 +20,19 @@ class MenuContent {
 				//reset to next row
 				spawnX = this.x;
 				spawnY += ROUND_WIDGET_HEIGHT;
+			}
+		}
+	}
+
+	update() {
+		//update round widgets
+		for (var i = 0; i < this.rounds.length; i++) {
+			this.rounds[i].update();
+
+			if (this.rounds[i].id == this.newSelectedID) {
+				this.rounds[i].touching = true;
+			} else {
+				this.rounds[i].touching = false;
 			}
 		}
 	}

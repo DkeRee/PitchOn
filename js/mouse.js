@@ -98,6 +98,15 @@ class Mouse {
 					this.touching = true;
 					return;
 				}
+
+				const rounds = STAGE_CACHE.content.rounds;
+
+				for (var i = 0; i < rounds.length; i++) {
+					if (rounds[i].touchingMouse()) {
+						this.touching = true;
+						return;
+					}
+				}
 			}
 		}
 
