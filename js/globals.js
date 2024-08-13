@@ -14,6 +14,9 @@ const CANVAS_HEIGHT = 750;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
+const ROUND_WIDGET_WIDTH = 220;
+const ROUND_WIDGET_HEIGHT = 220;
+
 //CURRENT STAGE
 var STAGE_CACHE;
 const PARTICLES = [];
@@ -44,6 +47,8 @@ const gameStart = new Audio("soundFx/gameStart.wav");
 const enter = new Audio("soundFx/enter.wav");
 const whoosh = new Audio("soundFx/whoosh.wav");
 const whooshSmall = new Audio("soundFx/whooshSmall.wav");
+const selectIn = new Audio("soundFx/selectIn.wav");
+const selectedBack = new Audio("soundFx/selectedback.wav");
 
 //slight tweaks
 wobbleIn.volume = 0.6;

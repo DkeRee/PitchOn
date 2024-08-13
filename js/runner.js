@@ -25,10 +25,10 @@
 		if (!STAGE_CACHE || (STAGE_CACHE && !STAGE_CACHE.ongoing)) {
 			switch (NEXT_STAGE) {
 				case OPENING:
-					STAGE_CACHE = new TitleScreen(); //set opening
+					STAGE_CACHE = new TitleScreen();
 					break;
 				case MENU:
-					STAGE_CACHE;//set menu
+					STAGE_CACHE = new Menu();
 					break;
 				case EDITOR:
 					STAGE_CACHE;//editor

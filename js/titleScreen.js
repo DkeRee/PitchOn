@@ -138,7 +138,7 @@ class TitleScreen {
 			if (this.opacity <= 0) {
 				this.opacity = 0;
 				this.ongoing = false;
-				NEXT_STAGE = GAME;
+				NEXT_STAGE = MENU;
 			}
 		}
 	}

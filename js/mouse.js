@@ -91,6 +91,14 @@ class Mouse {
 					return;
 				}
 			}
+
+			//menu back button
+			if (STAGE_CACHE.back) {
+				if (STAGE_CACHE.back.touchingMouse()) {
+					this.touching = true;
+					return;
+				}
+			}
 		}
 
 		this.touching = false;
