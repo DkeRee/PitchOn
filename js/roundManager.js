@@ -160,7 +160,7 @@ class RoundManager {
 
 		this.healthBar.setNewGoalX(CANVAS_WIDTH + 60);
 		this.sea.setNewGoal(800);
-		this.toneMenu.setNewGoalContainer(-150);
+		this.toneMenu.setNewGoalContainer(-180);
 	}
 
 	spawnBubble() {
@@ -303,6 +303,13 @@ class RoundManager {
 		}
 	}
 
+	watchEnd() {
+		if (KEYBINDS[69] && !this.spawningIn && !this.finishing) {
+			playSound(gameFail);
+			this.endRound();
+		}
+	}
+
 	updateContent() {
 		this.touchFound = false;
 
@@ -332,6 +339,7 @@ class RoundManager {
 		this.toneMenu.update();
 		this.sea.update();
 		this.updateHurt();
+		this.watchEnd();
 
 		this.particleUpdate();
 	}
@@ -343,6 +351,13 @@ class RoundManager {
 		ctx.fillStyle = hexToRgbA("#c9b5f7", this.levelTextOpacity);
 		ctx.textAlign = "center";
 		ctx.fillText(`LEVEL ${this.levelTextCount}`, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+
+		if (this.toneMenu) {
+			ctx.font = "20px UniSansHeavy";
+			ctx.textAlign = "left";
+			ctx.fillStyle = "#c9b5f7";
+			ctx.fillText("Press 'E' To Exit", this.toneMenu.x, 40);
+		}
 		ctx.shadowBlur = 0;
 	}
 
