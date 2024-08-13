@@ -3,7 +3,7 @@ class TopParticle extends Particle {
 		super(randRange(10, CANVAS_WIDTH - 10), -20);
 		this.speed = randRange(3, 7);
 		this.radius = randRange(4, 7);
-		this.color = "#edadf0";
+		this.color = "#9eb1e6";
 		this.opacity = 0.7;
 	}
 

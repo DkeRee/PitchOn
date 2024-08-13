@@ -1,7 +1,7 @@
 class MenuContent {
 	constructor(roundContents) {
 		this.x = 50;
-		this.y = 130;
+		this.y = 85;
 		this.width = 1100;
 		this.height = 600;
 

@@ -6,12 +6,26 @@ class Menu {
 		this.opacity = 0;
 
 		//back button
-		this.back = new BoxWidget(80, 25, 160, 75);
+		this.back = new BoxWidget(80, 25, 160, 45);
 		this.touchingBack = false;
 
 		//1100, 220 total, 200 for padding
 		this.content = new MenuContent([
-			BEGINNER
+			BEGINNER,
+			CDE_AMATEUR,
+			FGAB_AMATEUR,
+			FULL_NATURAL,
+			CD_ACCIDENTAL,
+			FGA_ACCIDENTAL,
+			FULL_ACCIDENTAL_1,
+			FULL_ACCIDENTAL_2,
+			FULL_CHROMATIC,
+			OCTAVE_FULL_NAT,
+			OCTAVE_FULL_ACC,
+			OCTAVE_FULL_CHROMATIC,
+			CHROMATIC_BLIND_1,
+			CHROMATIC_BLIND_2,
+			FULL_CHROMATIC_BLIND
 		]);
 
 		this.pTick = 5;
@@ -80,17 +94,17 @@ class Menu {
 		ctx.fillStyle = hexToRgbA("#c9b5f7", this.opacity);
 
 		ctx.lineWidth = 4;
-		ctx.font = "100px UniSansHeavy";
+		ctx.font = "65px UniSansHeavy";
 		ctx.textAlign = "center";
 
 		//title
-		ctx.fillText("MENU", CANVAS_WIDTH / 2, 100);
-		ctx.strokeText("MENU", CANVAS_WIDTH / 2, 100);
+		ctx.fillText("MENU", CANVAS_WIDTH / 2, 60);
+		ctx.strokeText("MENU", CANVAS_WIDTH / 2, 60);
 
 		//line
 		ctx.beginPath();
-		ctx.moveTo(30, 120);
-		ctx.lineTo(CANVAS_WIDTH - 30, 120);
+		ctx.moveTo(30, 75);
+		ctx.lineTo(CANVAS_WIDTH - 30, 75);
 		ctx.stroke();
 
 		//back button render
@@ -99,9 +113,9 @@ class Menu {
 			ctx.strokeStyle = hexToRgbA("#f5e8c9", this.opacity);
 		}
 
-		ctx.font = "60px UniSansHeavy";
-		ctx.fillText("BACK", this.back.x + this.back.width / 2, this.back.y + this.back.height / 2 + 20);
-		ctx.strokeText("BACK", this.back.x + this.back.width / 2, this.back.y + this.back.height / 2 + 20);
+		ctx.font = "40px UniSansHeavy";
+		ctx.fillText("BACK", this.back.x + this.back.width / 2, this.back.y + this.back.height / 2 + 5);
+		ctx.strokeText("BACK", this.back.x + this.back.width / 2, this.back.y + this.back.height / 2 + 5);
 
 		ctx.shadowBlur = 0;
 
