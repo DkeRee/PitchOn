@@ -82,7 +82,7 @@ const FULL_NATURAL = {
 	},
 	blind: false,
 	fallingSpeed: 0.65,
-	punishOffset: 11,
+	punishOffset: 10,
 	wantOctave: false,
 	maxLives: 3,
 	toneRange: ["C", "D", "E", "F", "G", "A", "B"],
