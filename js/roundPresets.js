@@ -24,7 +24,7 @@ const BEGINNER = {
 };
 
 const CDE_REGULAR = { 
-	title: "r"
+	title: "r",
 	difficultyProgression: {
 		bubbleAmp: 0,
 		fallAmp: 0,
