@@ -48,7 +48,7 @@ const enter = new Audio("soundFx/enter.wav");
 const whoosh = new Audio("soundFx/whoosh.wav");
 const whooshSmall = new Audio("soundFx/whooshSmall.wav");
 const selectIn = new Audio("soundFx/selectIn.wav");
-const selectedBack = new Audio("soundFx/selectedback.wav");
+const selectedBack = new Audio("soundFx/selectedBack.wav");
 const gameStartOne = new Audio("soundFx/gameStartOne.wav");
 const gameStartTwo = new Audio("soundFx/gameStartTwo.mp3");
 
